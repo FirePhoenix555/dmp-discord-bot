@@ -10,8 +10,9 @@ function addCommand(cmd) {
         console.log(`[WARNING] The command ${cmd} is missing a required "data" or "execute" property.`);
 }
 
-addCommand(require('./commands/test.js'));
-addCommand(require('./commands/archive.js'));
+require("./getCommands.js").forEach(cmd => {
+    addCommand(cmd);
+})
 
 
 // Registering commands
