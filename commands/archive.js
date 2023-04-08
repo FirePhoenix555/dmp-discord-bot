@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { channelId } = require('../config.json');
+const { channelId, validUsers } = require('../config.json');
 const fs = require('fs').promises;
 
 module.exports = {
@@ -14,6 +14,17 @@ module.exports = {
             option.setName('date')
                 .setDescription('The date of the DMP in "YYYY-MM-DD" format. Set to the date of submission if not included.')),
     async execute(interaction) {
+        // checking if the user is allowed to use this command (whitelist)
+        let validUser = false;
+        for (let i = 0; i < validUsers.length; i++) {
+            let userid = validUsers[i];
+            if (interaction.user.id == userid) {
+                validUser = true;
+                break;
+            }
+        }
+        if (!validUser) return;
+
         const channel = interaction.client.channels.cache.get(channelId);
         const msgId = interaction.options.get("message_id").value;
 
