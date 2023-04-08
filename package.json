@@ -1,0 +1,20 @@
+{
+  "name": "dmp-bot",
+  "version": "1.0.0",
+  "description": "A Discord bot to automatically post, check, and archive DMPs (Daily Math Problems).",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FirePhoenix555/dmp-discord-bot.git"
+  },
+  "author": "Fire",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FirePhoenix555/dmp-discord-bot/issues"
+  },
+  "homepage": "https://github.com/FirePhoenix555/dmp-discord-bot#readme"
+}
