@@ -1,0 +1,67 @@
+const Discord = require('discord.js');
+const { validUsers } = require('../config.json');
+const fs = require('fs').promises;
+
+module.exports = {
+    data: new Discord.SlashCommandBuilder()
+        .setName('queue')
+        .setDescription('Queues a DMP to be posted at noon on a specified date.')
+        .addStringOption(option =>
+            option.setName('date')
+                .setDescription('The date of the DMP in "YYYY-MM-DD" format.')
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('answer')
+                .setDescription('The answer of the DMP.')
+                .setRequired(true))
+        .addAttachmentOption(option =>
+            option.setName('attachments')
+                .setDescription('Any images to send with the DMP.'))
+        .addStringOption(option =>
+            option.setName('content')
+                .setDescription('The content to send with the DMP.')),
+    async execute(interaction) {
+        // checking if the user is allowed to use this command (whitelist)
+        let validUser = false;
+        for (let i = 0; i < validUsers.length; i++) {
+            let userid = validUsers[i];
+            if (interaction.user.id == userid) {
+                validUser = true;
+                break;
+            }
+        }
+        if (!validUser) return;
+
+        let date;
+        if (interaction.options.get("date")) {
+            date = interaction.options.get("date").value;
+        } else {
+            console.log("Invalid date.");
+            await interaction.reply("Invalid date.");
+            return;
+        }
+
+        let content = "";
+        if (interaction.options.get("content")) content = interaction.options.get("content").value;
+
+        let attachments = [];
+        if (interaction.options.get("attachments")) attachments.push(interaction.options.get("attachments").value);
+
+        let answer = interaction.options.get("answer").value;
+        
+        let data = {
+            "message": {
+                content,
+                attachments
+            },
+            "answer": answer
+        }
+
+        let queue = require('../queue.json');
+        queue[date] = data;
+
+        await fs.writeFile('./queue.json', JSON.stringify(queue));
+
+        await interaction.reply("Successfully queued DMP.");
+    },
+};
