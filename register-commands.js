@@ -11,6 +11,7 @@ function addCommand(cmd) {
 }
 
 addCommand(require('./commands/test.js'));
+addCommand(require('./commands/archive.js'));
 
 
 // Registering commands

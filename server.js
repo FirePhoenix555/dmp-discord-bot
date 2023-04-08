@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const { token } = require('./config.json');
 require("./register-commands.js");
 
-const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds] });
+const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.MessageContent] });
 
 client.once(Discord.Events.ClientReady, c => {
 	console.log(`Ready! Logged in as ${c.user.tag}`);
@@ -20,6 +20,7 @@ function addCommand(cmd) {
 }
 
 addCommand(require('./commands/test.js'));
+addCommand(require('./commands/archive.js'));
 
 
 client.on(Discord.Events.InteractionCreate, async interaction => {
