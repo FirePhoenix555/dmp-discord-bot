@@ -13,4 +13,8 @@
     * user inserts answer with `/check (answer*) (date)`
       * if date not entered, default to last dmp
     * also if user replies to dmp message?
+    * autocheck that's not just directly comparing (evaluate f(x) at multiple points and check for match)
 6. Read from archive command?
+7. Update date input commands (`/archive`, `/queue`) to validate date format
+    * And change option types anyway
+8. Auto-archive on DMP post
