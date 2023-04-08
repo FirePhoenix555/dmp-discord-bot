@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/FirePhoenix555/dmp-discord-bot/issues"
   },
-  "homepage": "https://github.com/FirePhoenix555/dmp-discord-bot#readme"
+  "homepage": "https://github.com/FirePhoenix555/dmp-discord-bot#readme",
+  "dependencies": {
+    "discord.js": "^14.9.0"
+  }
 }
