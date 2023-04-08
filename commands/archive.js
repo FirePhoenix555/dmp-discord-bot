@@ -19,12 +19,27 @@ module.exports = {
 
         channel.messages.fetch(msgId)
         .then(async message => {
+            // getting attachments
+            let att = [];
+            message.attachments.forEach(attachment => {
+                att.push(attachment.url);
+            });
+
             let date;
             if (interaction.options.get("date")) date = interaction.options.get("date").value;
             else date = formatTimestamp(message.createdTimestamp);
 
+            let data = {
+                "url": message.url,
+                "channelId": message.channelId,
+                "id": message.id,
+                "content": message.content,
+                "embeds": message.embeds,
+                "attachments": att
+            };
+
             let archive = require('../archives.json');
-            archive[date] = message;
+            archive[date] = data;
 
             await fs.writeFile('./archives.json', JSON.stringify(archive));
 
