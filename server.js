@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const { token } = require('./config.json');
+require("./register-commands.js");
 
 const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds] });
 
