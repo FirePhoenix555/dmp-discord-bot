@@ -7,8 +7,8 @@
     * ~~Attachments~~
     * Semi-dmps
 3. Post from queue
-4. Queue command
-    * but only me
+4. ~~Queue command~~
+    * ~~but only me~~
 5. Check command
     * user inserts answer with `/check (answer*) (date)`
       * if date not entered, default to last dmp
