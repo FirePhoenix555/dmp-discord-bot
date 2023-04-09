@@ -25,7 +25,7 @@
     * Remove unnecessary `console.log`s
     * List default replies in `config.json`
       * only as one attribute though, not multiple
-      * send response on "invalid format" log
+      * ~~send response on "invalid format" log~~
 3. Leaderboard command
     * Don't re-check an answer if a user's already gotten it correct
     * including "kdr" (correct : incorrect ratio)? maybe not? maybe `console.log` on attempt but nothing more?

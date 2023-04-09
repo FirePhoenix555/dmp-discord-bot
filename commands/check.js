@@ -41,11 +41,14 @@ module.exports = {
         }
         else date = getLastDate(archive);
         
-        if (checkAnswer(answer, archive[date].answer)) {
+        let correct = checkAnswer(answer, archive[date].answer);
+        if (correct == 1) { // correct answer
             await interaction.channel.send({ content: `<@${interaction.user.id}> got the DMP for ${date} correct!`, "allowedMentions": { "users" : []}});
             await interaction.reply({ content: "Correct!", ephemeral: true });
-        } else {
+        } else if (correct == 0) { // incorrect answer
             await interaction.reply({ content: "Incorrect.", ephemeral: true });
+        } else { // error
+            await interaction.reply({ content: "Invalid format.", ephemeral: true });
         }
     },
 };
@@ -87,7 +90,7 @@ function checkAnswer(given, actual) {
             return Math.abs(gNum - aNum) < marginOfError;
         } else {
             console.log("Invalid format");
-            return false;
+            return 2;
         }
 
     } else if (func.test(a)) {
@@ -104,13 +107,13 @@ function checkAnswer(given, actual) {
                 let x = Math.random() * 2000 - 1000; // random number from -1000 to 1000
                 let gVal = simplify(parse(gf)).evaluate({ x });
                 let aVal = simplify(parse(af)).evaluate({ x });
-                if (Math.abs(gVal - aVal) > marginOfError) return false;
+                if (Math.abs(gVal - aVal) > marginOfError) return 0;
             }
 
-            return true;
+            return 1;
         } else {
             console.log("Invalid format");
-            return false;
+            return 2;
         }
 
     } else if (str.test(a)) {
