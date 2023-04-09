@@ -22,5 +22,17 @@
     * Move date code into its own file
     * Move json files into own folder
     * I'm sure there's more code I can reorganize into separate files
+    * Remove unnecessary `console.log`s
+    * List default replies in `config.json`
+      * only as one attribute though, not multiple
+      * send response on "invalid format" log
 3. Leaderboard command
+    * Don't re-check an answer if a user's already gotten it correct
 4. semi-dmps?
+5. Host the bot online
+    * Move database files onto an actual database
+6. Help / introduction command
+    * Pin in #dmp
+7. legacy command to archive dmps from link list
+    * remove this when you're done archiving
+      * back up `archives.json` after everything is archived
