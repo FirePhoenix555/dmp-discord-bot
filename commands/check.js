@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 // const { channelId } = require('../config.json');
 const fs = require('fs').promises;
+const { simplify, parse, evaluate } = require("mathjs");
+
+const marginOfError = 0.001;
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()
@@ -60,5 +63,51 @@ function getLastDate(archive) {
 }
 
 function checkAnswer(given, actual) {
-    return given == actual; // for now, just comparing them character-by-character
+    let g = given.toLowerCase().replaceAll(/\s/g, "");
+    let a = actual.toLowerCase().replaceAll(/\s/g, "");
+
+    let mcq = /[abcde]/;
+    let num = /^[0-9.^/{}()!\[\]-]+$/;
+    let func = /[a-z]\((.*?)\)=([a-z0-9.^/{}|\\_()%$!\[\]-]+)/;
+    let str = /^\D+$/;
+
+    if (mcq.test(a)) {
+        let absoluteG = g.replaceAll(/[^abcde]/g, "");
+        let absoluteA = a.replaceAll(/[^abcde]/g, "");
+        return absoluteG == absoluteA;
+
+    } else if (num.test(a)) {
+        let gNumStr = g.match(num)[0];
+        let gNum = parse(gNumStr).evaluate();
+        let aNumStr = a.match(num)[0];
+        let aNum = parse(aNumStr).evaluate();
+
+        return Math.abs(gNum - aNum) < marginOfError;
+
+    } else if (func.test(a)) {
+        let arr = g.match(func);
+        if (arr) {
+            let gVar = arr[1];
+            let gf = arr[2].replaceAll(gVar, "x");
+
+            let aArr = a.match(func);
+            let aVar = aArr[1];
+            let af = aArr[2].replaceAll(aVar, "x");
+
+            for (let i = 0; i < 4; i++) {
+                let x = Math.random() * 2000 - 1000; // random number from -1000 to 1000
+                let gVal = simplify(parse(gf)).evaluate({ x });
+                let aVal = simplify(parse(af)).evaluate({ x });
+                if (Math.abs(gVal - aVal) > marginOfError) return false;
+            }
+
+            return true;
+        } else {
+            console.log("Invalid format");
+            return false;
+        }
+
+    } else if (str.test(a)) {
+        return g == a;
+    }
 }
