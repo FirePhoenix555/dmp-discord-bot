@@ -69,7 +69,7 @@ function checkAnswer(given, actual) {
 
     let mcq = /^[abcde]$/;
     let num = /^[0-9.^/{}()!\[\]-]+$/;
-    let func = /^[a-z]\((.*?)\)=([a-z0-9.^/{}|\\_()%$!\[\]+*-]+)$/;
+    let func = /^[a-z]\((.*?)\)=([a-z0-9.^/{}|_()%!\[\]+*-]+)$/;
     let str = /^\D+$/;
 
     if (mcq.test(a)) {
