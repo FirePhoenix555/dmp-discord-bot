@@ -42,6 +42,7 @@ module.exports = {
         else date = getLastDate(archive);
         
         if (checkAnswer(answer, archive[date].answer)) {
+            await interaction.channel.send({ content: `<@${interaction.user.id}> got the DMP for ${date} correct!`, "allowedMentions": { "users" : []}});
             await interaction.reply({ content: "Correct!", ephemeral: true });
         } else {
             await interaction.reply({ content: "Incorrect.", ephemeral: true });
