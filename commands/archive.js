@@ -6,13 +6,17 @@ module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('archive')
         .setDescription('Archives a single DMP to the database.')
-        .addStringOption(option =>
+        .addIntegerOption(option =>
             option.setName('message_id')
                 .setDescription('The message to archive.')
-                .setRequired(true))
+                .setRequired(true)
+                .setMaxLength(20)
+                .setMinLength(15))
         .addStringOption(option =>
             option.setName('date')
-                .setDescription('The date of the DMP in "YYYY-MM-DD" format. Set to the date of submission if not included.'))
+                .setDescription('The date of the DMP in "YYYY-MM-DD" format. Set to the date of submission if not included.')
+                .setMaxLength(10)
+                .setMinLength(10))
         .addStringOption(option =>
             option.setName('answer')
                 .setDescription('[LEGACY] The DMP\'s answer. Only set for past DMPs.'))

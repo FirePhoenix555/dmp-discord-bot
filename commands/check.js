@@ -12,7 +12,9 @@ module.exports = {
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('date')
-                .setDescription('The date of the DMP in "YYYY-MM-DD" format. Set to the most recent DMP if not included.')),
+                .setDescription('The date of the DMP in "YYYY-MM-DD" format. Set to the most recent DMP if not included.')
+                .setMaxLength(10)
+                .setMinLength(10)),
     async execute(interaction) {
         const answer = interaction.options.get("answer").value;
 

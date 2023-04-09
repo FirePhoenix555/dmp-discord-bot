@@ -9,7 +9,9 @@ module.exports = {
         .addStringOption(option =>
             option.setName('date')
                 .setDescription('The date of the DMP in "YYYY-MM-DD" format.')
-                .setRequired(true))
+                .setRequired(true)
+                .setMaxLength(10)
+                .setMinLength(10))
         .addStringOption(option =>
             option.setName('answer')
                 .setDescription('The answer of the DMP.')
@@ -35,7 +37,7 @@ module.exports = {
         let date;
         if (interaction.options.get("date")) {
             date = interaction.options.get("date").value;
-            
+
             if (!/\d\d\d\d-\d\d-\d\d/.test(date)) {
                 await interaction.reply("Invalid date format.");
                 return;
