@@ -45,16 +45,20 @@ module.exports = {
         if (interaction.options.get("content")) content = interaction.options.get("content").value;
 
         let attachments = [];
-        if (interaction.options.get("attachments")) attachments.push(interaction.options.get("attachments").value);
+        if (interaction.options.get("attachments")) attachments.push(interaction.options.get("attachments"));
 
         let answer = interaction.options.get("answer").value;
+
+        let d = new Date(date + "T12:00:00.000-06:00"); // to post at noon CST / 1pm CDT
+        let timestamp = d.valueOf();
         
         let data = {
             "message": {
                 content,
                 attachments
             },
-            "answer": answer
+            answer,
+            timestamp
         }
 
         let queue = require('../queue.json');
