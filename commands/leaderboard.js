@@ -23,8 +23,17 @@ module.exports = {
             output += `${i+1}. <@${rank[i].user}>: ${rank[i].count}\n`;
         }
         
-        if (!output) output = "Unfortunately there is no current leaderboard. Go ahead and answer a DMP to show up here!";
+        if (!output) {
+            await interaction.reply({ content: "Unfortunately there is no current leaderboard. Go ahead and answer a DMP to show up here!", ephemeral: true });
+            return;
+        }
 
-        await interaction.reply({content: output, "allowedMentions": { "users" : []}});
+        let embed = new Discord.EmbedBuilder()
+            //.setColor(0x0099FF)
+            .setTitle('Leaderboard')
+            .setDescription(output)
+            .setTimestamp();
+
+        await interaction.reply({embeds: [embed]});
     },
 };
