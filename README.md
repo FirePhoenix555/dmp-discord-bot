@@ -29,6 +29,7 @@
 3. ~~Leaderboard command~~
     * ~~Don't re-check an answer if a user's already gotten it correct~~
     * including "kdr" (correct : incorrect ratio)? maybe not? maybe `console.log` on attempt but nothing more?
+    * sort alphabetically (by user id?) on tie
 4. semi-dmps?
 5. Host the bot online
     * Move database files onto an actual database
@@ -37,3 +38,6 @@
 7. legacy command to archive dmps from link list
     * remove this when you're done archiving
       * back up `archives.json` after everything is archived
+8. Move "user got this correct" message to always be in #dmp
+    * After testing done though
+9. Add "will post at 12pm in the winter (cst) / 1pm in the summer (cdt)" to `/queue` description
