@@ -28,6 +28,10 @@ module.exports = {
             date = interaction.options.get("date").value;
             if (!archive[date]) {
                 await interaction.reply("That DMP doesn't exist! Make sure you formatted the date correctly.");
+                return;
+            } else if (!/\d\d\d\d-\d\d-\d\d/.test(date)) {
+                await interaction.reply("Invalid date format.");
+                return;
             }
         }
         else date = getLastDate(archive);

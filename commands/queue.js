@@ -35,6 +35,11 @@ module.exports = {
         let date;
         if (interaction.options.get("date")) {
             date = interaction.options.get("date").value;
+            
+            if (!/\d\d\d\d-\d\d-\d\d/.test(date)) {
+                await interaction.reply("Invalid date format.");
+                return;
+            }
         } else {
             console.log("Invalid date.");
             await interaction.reply("Invalid date.");

@@ -12,7 +12,7 @@
     * ~~user inserts answer with `/check (answer*) (date)`~~
       * ~~if date not entered, default to last dmp~~
     * autocheck that's not just directly comparing (evaluate f(x) at multiple points and check for match)
-6. Update date input commands (`/archive`, `/queue`, `/check`) to validate date format
+6. ~~Update date input commands (`/archive`, `/queue`, `/check`) to validate date format~~
     * And change option types anyway
 7. ~~Auto-archive on DMP post~~
 
