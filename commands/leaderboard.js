@@ -23,6 +23,8 @@ module.exports = {
             output += `${i+1}. <@${rank[i].user}>: ${rank[i].count}\n`;
         }
         
+        if (!output) output = "Unfortunately there is no current leaderboard. Go ahead and answer a DMP to show up here!";
+
         await interaction.reply({content: output, "allowedMentions": { "users" : []}});
     },
 };
