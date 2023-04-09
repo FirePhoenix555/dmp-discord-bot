@@ -6,12 +6,16 @@ module.exports = async function postDMP(client, dmp, date, queue) {
 
     // post
     const channel = client.channels.cache.get(channelId);
+
+    let url = "";
+    if (dmp.message.attachments[0]) url = dmp.message.attachments[0].attachment.url;
+
     const embed = {
         // color: 0x0099ff,
         title: 'DMP for ' + date,
         description: dmp.message.content,
         image: {
-            url: dmp.message.attachments[0].attachment.url,
+            url,
         }
     };
     
