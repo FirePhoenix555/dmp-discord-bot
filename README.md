@@ -2,11 +2,11 @@
 
 ---
 ### Todo
-1. Reset `channelId` in `config.json` to actual DMP channel and not the test (yall on github won't be able to see this rip)
+1. Reset `channelId` etc in `config.json` to actual DMP channel and not the test (yall on github won't be able to see this rip)
 2. Archive command
     * ~~Attachments~~
     * Semi-dmps
-3. Post from queue
+3. ~~Post from queue~~
 4. ~~Queue command~~
     * ~~but only me~~
 5. ~~Check command~~
@@ -17,7 +17,7 @@
 6. Read from archive command?
 7. Update date input commands (`/archive`, `/queue`, `/check`) to validate date format
     * And change option types anyway
-8. Auto-archive on DMP post
+8. ~~Auto-archive on DMP post~~
 9. Refactoring
     * Move date code into its own file
 10. leaderboard?
