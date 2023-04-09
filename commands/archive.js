@@ -9,8 +9,7 @@ module.exports = {
         .addIntegerOption(option =>
             option.setName('message_id')
                 .setDescription('The message to archive.')
-                .setRequired(true)
-                .setMinValue(1000000000000000))
+                .setRequired(true))
         .addStringOption(option =>
             option.setName('date')
                 .setDescription('The date of the DMP in "YYYY-MM-DD" format. Set to the date of submission if not included.')
