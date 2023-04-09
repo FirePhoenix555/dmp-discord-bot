@@ -70,9 +70,9 @@ module.exports = {
 
 function formatTimestamp(timestamp) {
     let date = new Date(timestamp);
-    let day = date.getDate().toLocaleString(undefined, {minimumIntegerDigits: 2});
-    let month = (date.getMonth() + 1).toLocaleString(undefined, {minimumIntegerDigits: 2});
-    let year = date.getFullYear().toLocaleString(undefined, {minimumIntegerDigits: 4}).replace(",", "");
+    let day = date.getDate().toLocaleString('en-US', { timeZone: 'America/Chicago', minimumIntegerDigits: 2 });
+    let month = (date.getMonth() + 1).toLocaleString('en-US', { timeZone: 'America/Chicago', minimumIntegerDigits: 2 });
+    let year = date.getFullYear().toLocaleString('en-US', { timeZone: 'America/Chicago', minimumIntegerDigits: 4 }).replace(",", "");
 
     return year + "-" + month + "-" + day;
 }
