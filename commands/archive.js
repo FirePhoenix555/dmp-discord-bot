@@ -10,8 +10,7 @@ module.exports = {
             option.setName('message_id')
                 .setDescription('The message to archive.')
                 .setRequired(true)
-                .setMaxLength(20)
-                .setMinLength(15))
+                .setMinValue(1000000000000000))
         .addStringOption(option =>
             option.setName('date')
                 .setDescription('The date of the DMP in "YYYY-MM-DD" format. Set to the date of submission if not included.')
