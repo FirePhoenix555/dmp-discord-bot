@@ -12,7 +12,11 @@ module.exports = {
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('date')
-                .setDescription('The date of the DMP in "YYYY-MM-DD" format. Set to the date of submission if not included.')),
+                .setDescription('The date of the DMP in "YYYY-MM-DD" format. Set to the date of submission if not included.'))
+        .addStringOption(option =>
+            option.setName('answer')
+                .setDescription('[LEGACY] The DMP\'s answer. Only set for past DMPs.'))
+        ,
     async execute(interaction) {
         // checking if the user is allowed to use this command (whitelist)
         let validUser = false;
@@ -40,13 +44,18 @@ module.exports = {
             if (interaction.options.get("date")) date = interaction.options.get("date").value;
             else date = formatTimestamp(message.createdTimestamp);
 
+            let answer = "PLACEHOLDER";
+            if (interaction.options.get("answer")) answer = interaction.options.get("answer").value;
+
             let data = {
                 "url": message.url,
                 "channelId": message.channelId,
                 "id": message.id,
                 "content": message.content,
                 "embeds": message.embeds,
-                "attachments": att
+                "attachments": att,
+                "answer": answer,
+                "timestamp": message.createdTimestamp
             };
 
             let archive = require('../archives.json');
