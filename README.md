@@ -28,7 +28,8 @@
       * ~~send response on "invalid format" log~~
 3. ~~Leaderboard command~~
     * ~~Don't re-check an answer if a user's already gotten it correct~~
-    * including "kdr" (correct : incorrect ratio)? maybe not? maybe `console.log` on attempt but nothing more?
+    * including "kdr" (correct : incorrect ratio)? maybe not? ~~maybe `console.log` on attempt but nothing more?~~
+      * send command log to testing channel?
     * sort alphabetically (by user id?) on tie
 4. semi-dmps?
 5. Host the bot online

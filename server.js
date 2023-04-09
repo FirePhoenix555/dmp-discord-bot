@@ -35,6 +35,16 @@ client.on(Discord.Events.InteractionCreate, async interaction => {
 
 	const command = interaction.client.commands.get(interaction.commandName);
 
+    // logging all commands
+    let output = (interaction.member.nickname || interaction.user.username) + ":  /" + interaction.commandName + " ";
+
+    for (i in interaction.options.data) {
+        let option = interaction.options.data[i];
+        output += option.name + ":" + option.value + " ";
+    }
+
+    console.log(output);
+
 	if (!command) {
 		console.error(`No command matching ${interaction.commandName} was found.`);
 		return;
