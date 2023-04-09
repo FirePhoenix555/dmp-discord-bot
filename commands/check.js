@@ -32,19 +32,19 @@ module.exports = {
         if (interaction.options.get("date")) {
             date = interaction.options.get("date").value;
             if (!archive[date]) {
-                await interaction.reply("That DMP doesn't exist! Make sure you formatted the date correctly.");
+                await interaction.reply({ content: "That DMP doesn't exist! It probably just hasn't been archived yet...", ephemeral: true });
                 return;
             } else if (!/\d\d\d\d-\d\d-\d\d/.test(date)) {
-                await interaction.reply("Invalid date format.");
+                await interaction.reply({ content: "Invalid date format.", ephemeral: true });
                 return;
             }
         }
         else date = getLastDate(archive);
         
         if (checkAnswer(answer, archive[date].answer)) {
-            await interaction.reply("Correct!");
+            await interaction.reply({ content: "Correct!", ephemeral: true });
         } else {
-            await interaction.reply("Incorrect.");
+            await interaction.reply({ content: "Incorrect.", ephemeral: true });
         }
     },
 };

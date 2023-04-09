@@ -29,7 +29,10 @@ module.exports = {
                 break;
             }
         }
-        if (!validUser) return;
+        if (!validUser) {
+            await interaction.reply({ content: "Sorry, you are not authorized to use this command.", ephemeral: true });
+            return;
+        }
 
         const channel = interaction.client.channels.cache.get(channelId);
         const msgId = interaction.options.get("message_id").value;
@@ -46,7 +49,7 @@ module.exports = {
             if (interaction.options.get("date")) {
                 date = interaction.options.get("date").value;
                 if (!/\d\d\d\d-\d\d-\d\d/.test(date)) {
-                    await interaction.reply("Invalid date format.");
+                    await interaction.reply({ content: "Invalid date format.", ephemeral: true });
                     return;
                 }
             }

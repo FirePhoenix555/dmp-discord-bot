@@ -39,12 +39,12 @@ module.exports = {
             date = interaction.options.get("date").value;
 
             if (!/\d\d\d\d-\d\d-\d\d/.test(date)) {
-                await interaction.reply("Invalid date format.");
+                await interaction.reply({ content: "Invalid date format.", ephemeral: true });
                 return;
             }
         } else {
             console.log("Invalid date.");
-            await interaction.reply("Invalid date.");
+            await interaction.reply({ content: "Invalid date.", ephemeral: true });
             return;
         }
 
