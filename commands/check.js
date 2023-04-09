@@ -66,9 +66,9 @@ function checkAnswer(given, actual) {
     let g = given.toLowerCase().replaceAll(/\s/g, "");
     let a = actual.toLowerCase().replaceAll(/\s/g, "");
 
-    let mcq = /[abcde]/;
+    let mcq = /^[abcde]$/;
     let num = /^[0-9.^/{}()!\[\]-]+$/;
-    let func = /[a-z]\((.*?)\)=([a-z0-9.^/{}|\\_()%$!\[\]-]+)/;
+    let func = /^[a-z]\((.*?)\)=([a-z0-9.^/{}|\\_()%$!\[\]+*-]+)$/;
     let str = /^\D+$/;
 
     if (mcq.test(a)) {
