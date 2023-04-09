@@ -77,12 +77,17 @@ function checkAnswer(given, actual) {
         return absoluteG == absoluteA;
 
     } else if (num.test(a)) {
-        let gNumStr = g.match(num)[0];
-        let gNum = parse(gNumStr).evaluate();
-        let aNumStr = a.match(num)[0];
-        let aNum = parse(aNumStr).evaluate();
+        if (g.match(num)) {
+            let gNumStr = g.match(num)[0];
+            let gNum = parse(gNumStr).evaluate();
+            let aNumStr = a.match(num)[0];
+            let aNum = parse(aNumStr).evaluate();
 
-        return Math.abs(gNum - aNum) < marginOfError;
+            return Math.abs(gNum - aNum) < marginOfError;
+        } else {
+            console.log("Invalid format");
+            return false;
+        }
 
     } else if (func.test(a)) {
         let arr = g.match(func);
