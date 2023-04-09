@@ -66,6 +66,8 @@ module.exports = {
 
         await fs.writeFile('./queue.json', JSON.stringify(queue));
 
+        setTimeout(async () => {await require('../post-dmp.js')(interaction.client, data, date, queue)}, queue[date].timestamp - Date.now());
+
         await interaction.reply("Successfully queued DMP.");
     },
 };
