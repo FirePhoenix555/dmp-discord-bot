@@ -6,7 +6,7 @@ module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('archive')
         .setDescription('Archives a single DMP to the database.')
-        .addIntegerOption(option =>
+        .addStringOption(option =>
             option.setName('message_id')
                 .setDescription('The message to archive.')
                 .setRequired(true))
