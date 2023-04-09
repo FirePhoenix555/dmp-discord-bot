@@ -43,6 +43,27 @@ module.exports = {
         
         let correct = checkAnswer(answer, archive[date].answer);
         if (correct == 1) { // correct answer
+
+            // add to leaderboard
+            let user = interaction.user.id;
+            let leaderboard = require('../leaderboard.json');
+
+            if (!(user in leaderboard)) {
+                leaderboard[user] = {};
+            }
+
+            let userInfo = leaderboard[user];
+
+            if (date in userInfo) {
+                await interaction.reply({ content: "You've already gotten this DMP correct!", ephemeral: true });
+                return;
+            }
+
+            userInfo[date] = true;
+            leaderboard[user] = userInfo;
+
+            await fs.writeFile('./leaderboard.json', JSON.stringify(leaderboard));
+
             await interaction.channel.send({ content: `<@${interaction.user.id}> got the DMP for ${date} correct!`, "allowedMentions": { "users" : []}});
             await interaction.reply({ content: "Correct!", ephemeral: true });
         } else if (correct == 0) { // incorrect answer
