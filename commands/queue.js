@@ -32,7 +32,10 @@ module.exports = {
                 break;
             }
         }
-        if (!validUser) return;
+        if (!validUser) {
+            await interaction.reply({ content: "Sorry, you are not authorized to use this command.", ephemeral: true });
+            return;
+        }
 
         let date;
         if (interaction.options.get("date")) {
