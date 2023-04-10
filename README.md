@@ -36,7 +36,7 @@
     * Move database files onto an actual database
 6. Help / introduction command
     * Pin in #dmp
-7. legacy command to archive dmps from link list
+7. ~~legacy command to archive dmps from link list~~
     * remove this when you're done archiving
       * back up `archives.json` after everything is archived
 8. Move "user got this correct" message to always be in #dmp
