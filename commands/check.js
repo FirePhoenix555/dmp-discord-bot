@@ -29,8 +29,8 @@ module.exports = {
             }
         }
         if (validUser) {
-            await interaction.reply({ content: "Sorry, you are not authorized to use this command.", ephemeral: true });
-            return;
+            // await interaction.reply({ content: "Sorry, you are not authorized to use this command.", ephemeral: true });
+            // return;
         }
 
 
