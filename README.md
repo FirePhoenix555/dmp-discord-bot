@@ -28,7 +28,9 @@
       * ~~send response on "invalid format" log~~
 3. ~~Leaderboard command~~
     * ~~Don't re-check an answer if a user's already gotten it correct~~
+      * send "you've already answered" on incorrect answers too?
     * including "kdr" (correct : incorrect ratio)? maybe not? ~~maybe `console.log` on attempt but nothing more?~~
+      * kdr: `round(10*(correct+1)/(attempts+2), 2)` to encourage more attempts in general?
       * send command log to testing channel?
     * sort alphabetically (by user id?) on tie
 4. semi-dmps?
