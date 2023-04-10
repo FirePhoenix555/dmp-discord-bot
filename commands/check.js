@@ -108,51 +108,55 @@ function checkAnswer(given, actual) {
 
     let mcq = /^[abcde]$/;
     let num = /^[0-9.^/{}()!\[\]-]+$/;
-    let func = /^[a-z]\((.*?)\)=([a-z0-9.^/{}|_()%!\[\]+*-]+)$/;
+    let func = /^[a-z]\((.*?)\)=([a-z0-9.^/{}|_()%!\[\]+*-]*\1[a-z0-9.^/{}|_()%!\[\]+*-]*)$/;
     let str = /^\D+$/;
 
+    // if "function" isn't already prefixed with f(x)= or f(y)=, add it
+    if (func.test("f(x)=" + g)) g = "f(x)=" + g;
+    else if (func.test("f(y)=" + g)) g = "f(y)=" + g;
+
+    if (func.test("f(x)=" + a)) a = "f(x)=" + a;
+    else if (func.test("f(y)=" + a)) a = "f(y)=" + a;
+
     if (mcq.test(a)) {
+        if (!mcq.test(g)) return 2;
+
         let absoluteG = g.replaceAll(/[^abcde]/g, "");
         let absoluteA = a.replaceAll(/[^abcde]/g, "");
+
         return absoluteG == absoluteA;
 
     } else if (num.test(a)) {
-        if (g.match(num)) {
-            let gNumStr = g.match(num)[0];
-            let gNum = parse(gNumStr).evaluate();
-            let aNumStr = a.match(num)[0];
-            let aNum = parse(aNumStr).evaluate();
+        if (!num.test(g)) return 2;
 
-            return Math.abs(gNum - aNum) < marginOfError;
-        } else {
-            console.log("Invalid format");
-            return 2;
-        }
+        let gNumStr = g.match(num)[0];
+        let gNum = parse(gNumStr).evaluate();
+        let aNumStr = a.match(num)[0];
+        let aNum = parse(aNumStr).evaluate();
+
+        return Math.abs(gNum - aNum) < marginOfError;
 
     } else if (func.test(a)) {
+        g = g.replaceAll(/([a-z]+)([xy0-9])/g, "$1($2)"); // so you can't type "sinx" which mathjs doesn't know how to deal with
+
+        if (!func.test(g)) return 2;
+        
         let arr = g.match(func);
-        if (arr) {
-            let gVar = arr[1];
-            let gf = arr[2].replaceAll(gVar, "x");
 
-            let aArr = a.match(func);
-            let aVar = aArr[1];
-            let af = aArr[2].replaceAll(aVar, "x");
+        let gVar = arr[1];
+        let gf = arr[2].replaceAll(gVar, "x");
 
-            for (let i = 0; i < 4; i++) {
-                let x = Math.random() * 2000 - 1000; // random number from -1000 to 1000
-                let gVal = simplify(parse(gf)).evaluate({ x });
-                let aVal = simplify(parse(af)).evaluate({ x });
-                if (Math.abs(gVal - aVal) > marginOfError) return 0;
-            }
+        let aArr = a.match(func);
+        let aVar = aArr[1];
+        let af = aArr[2].replaceAll(aVar, "x");
 
-            return 1;
-        } else {
-            console.log("Invalid format");
-            return 2;
-        }
+        return simplify(parse(gf)).equals(simplify(parse(af)));
 
     } else if (str.test(a)) {
+        if (!str.test(g)) return 2;
         return g == a;
+
+    } else {
+        return 2;
     }
 }
