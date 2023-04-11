@@ -10,8 +10,13 @@ client.once(Discord.Events.ClientReady, c => {
 
     let d = new Date();
     let queue = require("./queue.json");
-    for (date in queue) {
-        setTimeout(async () => {await require('./post-dmp.js')(client, queue[date], date, queue)}, queue[date].timestamp - d.valueOf());
+    let f = require('./post-dmp.js');
+    for (let i = 0; i < Object.keys(queue).length; i++) {
+        let date = Object.keys(queue)[i];
+        let dmp = queue[date];
+        setTimeout(async () => {
+            await f(client, dmp, date, queue);
+        }, dmp.timestamp - d.valueOf());
     }
 });
 
