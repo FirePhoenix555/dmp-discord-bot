@@ -37,10 +37,17 @@ module.exports = {
         let user = interaction.user.id;
         let solved = date in leaderboard[user];
 
-        let output = `Information about the DMP for ${date}:\nUrl: ${url}\n`;
-        if (solved) output += "You've solved this DMP already!";
-        else output += "Unfortunately, you have yet to get this DMP correct.";
+        let output = solved ? "You've solved this DMP already!" : "Unfortunately, you have yet to get this DMP correct.";
 
-        await interaction.reply({ content: output, ephemeral: true });
-    },
+        let embed = new Discord.EmbedBuilder()
+            //.setColor(0x0099FF)
+            .setTitle('DMP information for ' + date)
+            .addFields(
+                { name: 'URL', value: url },
+                { name: 'Solved status', value: output }
+            )
+            .setTimestamp();
+
+        await interaction.reply({ embeds: [embed], ephemeral: true });
+    }
 };
