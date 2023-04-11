@@ -39,6 +39,10 @@ module.exports = {
 
         let leaderboard = require('../leaderboard.json');
 
+        if (!(user in leaderboard)) {
+            leaderboard[user] = {};
+        }
+
         let user = interaction.user.id;
         let solved = date in leaderboard[user];
 
