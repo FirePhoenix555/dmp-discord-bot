@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { token, channelId, roleId } = require('./config.json');
+const { token, channelId, roleId, commandsDisabled } = require('./config.json');
 require("./register-commands.js");
 const fs = require('fs').promises;
 
@@ -49,6 +49,13 @@ client.on(Discord.Events.InteractionCreate, async interaction => {
 		console.error(`No command matching ${interaction.commandName} was found.`);
 		return;
 	}
+
+    if (commandsDisabled) {
+        if (!validUsers.includes(interaction.user.id)) {
+            await interaction.reply({ content: "Sorry, commands are temporarily disabled (probably I'm being tested elsewhere). Please try again later.", ephemeral: true });
+            return;
+        }
+    }
 
 	try {
 		await command.execute(interaction);

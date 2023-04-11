@@ -21,15 +21,7 @@ module.exports = {
         ,
     async execute(interaction) {
         // checking if the user is allowed to use this command (whitelist)
-        let validUser = false;
-        for (let i = 0; i < validUsers.length; i++) {
-            let userid = validUsers[i];
-            if (interaction.user.id == userid) {
-                validUser = true;
-                break;
-            }
-        }
-        if (!validUser) {
+        if (!validUsers.includes(interaction.user.id)) {
             await interaction.reply({ content: "Sorry, you are not authorized to use this command.", ephemeral: true });
             return;
         }
