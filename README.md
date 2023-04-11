@@ -32,7 +32,7 @@
     * including "kdr" (correct : incorrect ratio)? maybe not? ~~maybe `console.log` on attempt but nothing more?~~
       * kdr: `round(10*(correct+1)/(attempts+2), 2)` to encourage more attempts in general?
       * send command log to testing channel?
-    * sort alphabetically (by user id?) on tie
+    * ~~sort alphabetically (by user id?) on tie~~
 4. semi-dmps?
 5. Host the bot online
     * Move database files onto an actual database

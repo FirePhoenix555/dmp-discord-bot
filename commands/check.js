@@ -77,7 +77,7 @@ module.exports = {
             userInfo[date] = true;
             leaderboard[user] = userInfo;
 
-            await fs.writeFile('./leaderboard.json', JSON.stringify(leaderboard));
+            await fs.writeFile('./leaderboard.json', JSON.stringify(alphabetize(leaderboard)));
 
             await interaction.channel.send({ content: `<@${interaction.user.id}> got the DMP for ${date} correct!`, "allowedMentions": { "users" : []}});
             await interaction.reply({ content: "Correct!", ephemeral: true });
@@ -100,6 +100,15 @@ function getLastDate(archive) {
         }
     }
     return ls;
+}
+
+function alphabetize(leaderboard) {
+    let l = {};
+    let keys = Object.keys(leaderboard).sort();
+    for (let i = 0; i < keys.length; i++) {
+        l[keys[i]] = leaderboard[keys[i]];
+    }
+    return l;
 }
 
 // answer classes
