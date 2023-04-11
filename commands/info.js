@@ -39,11 +39,12 @@ module.exports = {
 
         let leaderboard = require('../leaderboard.json');
 
+        let user = interaction.user.id;
+
         if (!(user in leaderboard)) {
             leaderboard[user] = {};
         }
 
-        let user = interaction.user.id;
         let solved = date in leaderboard[user];
 
         let output = solved ? "You've solved this DMP already!" : "Unfortunately, you have yet to get this DMP correct.";
