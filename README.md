@@ -17,7 +17,7 @@
 7. ~~Auto-archive on DMP post~~
 
 ### Todo Eventually
-1. Read from archive command?
+1. ~~Read from archive command?~~
 2. Refactoring
     * Move date code into its own file
     * Move json files into own folder

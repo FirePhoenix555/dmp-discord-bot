@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-// const { channelId } = require('../config.json');
+const { validUsers } = require('../config.json');
 const fs = require('fs').promises;
 
 module.exports = {
@@ -30,7 +30,12 @@ module.exports = {
         }
 
         let dmp = archive[date];
-        let url = dmp.url;
+
+        let img = "";
+        if (dmp.attachments.length > 0) {
+            if (dmp.attachments[0].attachment) img = dmp.attachments[0].attachment.url;
+            else img = dmp.attachments[0];
+        }
 
         let leaderboard = require('../leaderboard.json');
 
@@ -43,10 +48,16 @@ module.exports = {
             //.setColor(0x0099FF)
             .setTitle('DMP information for ' + date)
             .addFields(
-                { name: 'URL', value: url },
+                { name: 'URL', value: dmp.url },
                 { name: 'Solved status', value: output }
             )
-            .setTimestamp();
+            .setTimestamp(dmp.timestamp);
+        if (img) embed.setImage(img);
+        if (validUsers.includes(user)) embed.addFields({name: 'Answer', value: dmp.answer})
+
+        embed.addFields(
+            { name: 'Content', value: dmp.content }
+        );
 
         await interaction.reply({ embeds: [embed], ephemeral: true });
     }
