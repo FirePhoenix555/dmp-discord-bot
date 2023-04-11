@@ -56,7 +56,7 @@ module.exports = {
         }
         else date = getLastDate(archive);
         
-        let correct = checkAnswer(answer, archive[date].answer);
+        let correct = check(answer, archive[date].answer);
         if (correct == 1) { // correct answer
 
             // add to leaderboard
@@ -102,21 +102,84 @@ function getLastDate(archive) {
     return ls;
 }
 
-function checkAnswer(given, actual) {
-    let g = given.toLowerCase().replaceAll(/\s/g, "");
-    let a = actual.toLowerCase().replaceAll(/\s/g, "");
+// answer classes
+const mcq = /^[abcde]$/;
+const func = /^[a-z]\((.*?)\)=([a-z0-9.^/{}|_()%!\[\]+*-]*\1[a-z0-9.^/{}|_()%!\[\]+*-]*)$/;
 
-    let mcq = /^[abcde]$/;
-    let num = /^[0-9.^/{}()!\[\]-]+$/;
-    let func = /^[a-z]\((.*?)\)=([a-z0-9.^/{}|_()%!\[\]+*-]*\1[a-z0-9.^/{}|_()%!\[\]+*-]*)$/;
-    let str = /^\D+$/;
+function check(given, actual) {
+
+    let answers = actual.split(",");
+    let givens = given.split(",");
+
+    let correct = true;
+
+    // interpreting as unordered list (if given corresponds to any answer it's correct):
+    for (let i = 0; i < givens.length; i++) {
+        let g = givens[i].replaceAll("±", "+-");
+
+        if (/\+-(.*)$/.test(g)) {
+            g = g.replaceAll(/\+-(.*)$/g, "$1,-$1");
+            let gn = g.split(",");
+            givens.push(gn.slice(1).join(""));
+            g = gn[0];
+        }
+
+        g = parseUserInput(g);
+
+        // go through all answers and check if this matches any of them
+        // cor=2 when given was invalid for every single answer
+        // cor=1 when any answer was correct
+        // cor=0 when at least one incorrect and no correct
+        let cor = 2;
+        for (let j = answers.length-1; j >=0; j--) {
+            let a = parseUserInput(answers[j]);
+
+            let c = checkAnswer(g, a);
+            if (c == 0) {
+                cor = 0;
+            }
+            else if (c == 1) {
+                cor = 1;
+                answers.splice(j, 1);
+                break;
+            }
+        }
+        if (cor == 2) return cor;
+        else if (cor == 0) correct = cor;
+    }
+
+    if (answers.length > 0) return 0; // you didn't give every answer
+
+    return correct;
+}
+
+function multiReplace(str, obj) {
+    for (key in obj) {
+        str = str.replaceAll(new RegExp(key, "g"), obj[key]);
+    }
+    return str;
+}
+
+function parseUserInput(input) {
+    let i = input.toLowerCase().replaceAll(/\s/g, "");
+
+    i = multiReplace(i, {
+        "π": "pi",
+        "θ": "t",
+        "√": "sqrt",
+        "([⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖ𐞥ʳˢᵗᵘᵛʷˣʸᶻ]+)": "^($1)",
+        "[+-]\\d*c$": "",
+    });
 
     // if "function" isn't already prefixed with f(x)= or f(y)=, add it
-    if (func.test("f(x)=" + g)) g = "f(x)=" + g;
-    else if (func.test("f(y)=" + g)) g = "f(y)=" + g;
+    if (func.test("f(x)=" + i)) i = "f(x)=" + i;
+    else if (func.test("f(y)=" + i)) i = "f(y)=" + i;
+    else if (func.test("f(t)=" + i)) i = "f(t)=" + i;
 
-    if (func.test("f(x)=" + a)) a = "f(x)=" + a;
-    else if (func.test("f(y)=" + a)) a = "f(y)=" + a;
+    return i;
+}
+
+function checkAnswer(g, a) {
 
     if (mcq.test(a)) {
         if (!mcq.test(g)) return 2;
@@ -126,18 +189,7 @@ function checkAnswer(given, actual) {
 
         return absoluteG == absoluteA;
 
-    } else if (num.test(a)) {
-        if (!num.test(g)) return 2;
-
-        let gNumStr = g.match(num)[0];
-        let gNum = parse(gNumStr).evaluate();
-        let aNumStr = a.match(num)[0];
-        let aNum = parse(aNumStr).evaluate();
-
-        return Math.abs(gNum - aNum) < marginOfError;
-
     } else if (func.test(a)) {
-        g = g.replaceAll(/([a-z]+)([xy0-9])/g, "$1($2)"); // so you can't type "sinx" which mathjs doesn't know how to deal with
 
         if (!func.test(g)) return 2;
         
@@ -150,13 +202,16 @@ function checkAnswer(given, actual) {
         let aVar = aArr[1];
         let af = aArr[2].replaceAll(aVar, "x");
 
+        gf = gf.replaceAll(/([a-z]+)([x0-9])/g, "$1($2)"); // so you can't type "sinx" which mathjs doesn't know how to deal with
+        af = af.replaceAll(/([a-z]+)([x0-9])/g, "$1($2)");
+
         return simplify(parse(gf)).equals(simplify(parse(af)));
 
-    } else if (str.test(a)) {
-        if (!str.test(g)) return 2;
-        return g == a;
-
     } else {
-        return 2;
+        try {
+            return simplify(parse(g)).evaluate() == simplify(parse(a)).evaluate();
+        } catch {
+            return 2;
+        }
     }
 }
