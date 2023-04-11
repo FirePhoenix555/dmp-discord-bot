@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { token, channelId, roleId, commandsDisabled } = require('./config.json');
+const { token, channelId, roleId, commandsDisabled, validUsers } = require('./config.json');
 require("./register-commands.js");
 const fs = require('fs').promises;
 
