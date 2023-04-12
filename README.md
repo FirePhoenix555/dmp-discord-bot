@@ -1,5 +1,5 @@
 ### DMP Discord bot
-Hello! I'm the official bot for Daily Math Problems! I help out my programmer, <@294217544904998927>, with some tasks relating to posting and archiving DMPs, but you can use me too:
+Hello! I'm the official bot for Daily Math Problems! I help out my programmer, [FirePhoenix555](https://github.com/FirePhoenix555), with some tasks relating to posting and archiving DMPs, but you can use me too:
 
 `/check`: Check your answer to a DMP! Any DMP in my archive (no matter how old) can be checked, so long as you haven't already gotten it correct... You can provide a date in this command to check a specific day's DMP, or you can leave the date field blank to check your answer for the most recently posted DMP.  
 `/leaderboard`: Display the DMP solving leaderboard! I keep track of a leaderboard based on your attempt history for any DMPs in my archive. You can display that with this command. I hope this encourages you to keep up the work on math problems!  
