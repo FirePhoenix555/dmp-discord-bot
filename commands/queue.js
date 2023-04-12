@@ -5,7 +5,7 @@ const fs = require('fs').promises;
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('queue')
-        .setDescription('Queues a DMP to be posted at noon on a specified date.')
+        .setDescription('Queues a DMP to be posted on a specified date.')
         .addStringOption(option =>
             option.setName('date')
                 .setDescription('The date of the DMP in "YYYY-MM-DD" format.')
