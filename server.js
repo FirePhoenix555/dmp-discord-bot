@@ -64,7 +64,7 @@ client.on(Discord.Events.InteractionCreate, async interaction => {
 
 	try {
 		let res = await command.execute(interaction);
-        if (res != 0) { // error
+        if (res) { // error
             console.log(responseCodes[res]);
             
             let obj = {
