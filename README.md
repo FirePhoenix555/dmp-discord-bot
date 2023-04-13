@@ -57,3 +57,9 @@ My code is publicly available on GitHub! You can check it out [here](https://git
 8. Move "user got this correct" message to always be in #dmp
     * After testing done though
 9. Add "will post at 12pm in the winter (cst) / 1pm in the summer (cdt)" to `/queue` description
+10. Matrix user input class (format convert to mathjs `[a b; c d]`)
+11. Detect variable with `/[^a-z]+([a-z]+)[^a-z]+/` or smth
+12. Support for `x=1` format / lines (`y=mx+b`)
+13. Set bot status/nickname/profile pic
+14. Move `/help` descriptions to config file
+15. Add `/help [command]`
