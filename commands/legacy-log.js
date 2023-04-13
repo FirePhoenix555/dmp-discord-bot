@@ -18,8 +18,7 @@ module.exports = {
     async execute(interaction) {
         // checking if the user is allowed to use this command (whitelist)
         if (!validUsers.includes(interaction.user.id)) {
-            await interaction.reply({ content: "Sorry, you are not authorized to use this command.", ephemeral: true });
-            return;
+            return 1;
         }
 
         await interaction.reply("Archiving...");
@@ -81,6 +80,8 @@ module.exports = {
         }
 
         await interaction.followUp("Archiving complete.");
+
+        return 0;
     },
 };
 

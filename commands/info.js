@@ -16,17 +16,14 @@ module.exports = {
         let archive = require('../archives.json');
 
         if (!archive || Object.keys(archive).length == 0) {
-            await interaction.reply({ content: "Unfortunately, there are no DMPs currently in my archive. Please try again later.", ephemeral: true });
-            return;
+            return 2;
         }
 
         let date = interaction.options.get("date").value;
         if (!archive[date]) {
-            await interaction.reply({ content: "That DMP doesn't exist! It probably just hasn't been archived yet...", ephemeral: true });
-            return;
+            return 3;
         } else if (!/\d\d\d\d-\d\d-\d\d/.test(date)) {
-            await interaction.reply({ content: "Invalid date format.", ephemeral: true });
-            return;
+            return 6;
         }
 
         let dmp = archive[date];
@@ -65,5 +62,7 @@ module.exports = {
         );
 
         await interaction.reply({ embeds: [embed], ephemeral: true });
+
+        return 0;
     }
 };

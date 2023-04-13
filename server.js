@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { token, channelId, roleId, commandsDisabled, validUsers } = require('./config.json');
+const { token, channelId, roleId, commandsDisabled, validUsers, responseCodes } = require('./config.json');
 require("./register-commands.js");
 const fs = require('fs').promises;
 
@@ -63,7 +63,18 @@ client.on(Discord.Events.InteractionCreate, async interaction => {
     }
 
 	try {
-		await command.execute(interaction);
+		let res = await command.execute(interaction);
+        if (res != 0) { // error
+            console.log(responseCodes[res]);
+            
+            let obj = {
+                content: responseCodes[res],
+                ephemeral: true
+            };
+
+            if (interaction.replied || interaction.deferred) await interaction.followUp(obj);
+            else await interaction.reply(obj);
+        }
 	} catch (error) {
 		console.error(error);
 		if (interaction.replied || interaction.deferred) {

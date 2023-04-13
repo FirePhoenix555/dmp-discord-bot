@@ -25,8 +25,7 @@ module.exports = {
     async execute(interaction) {
         // checking if the user is allowed to use this command (whitelist)
         if (!validUsers.includes(interaction.user.id)) {
-            await interaction.reply({ content: "Sorry, you are not authorized to use this command.", ephemeral: true });
-            return;
+            return 1;
         }
 
         let date;
@@ -34,13 +33,11 @@ module.exports = {
             date = interaction.options.get("date").value;
 
             if (!/\d\d\d\d-\d\d-\d\d/.test(date)) {
-                await interaction.reply({ content: "Invalid date format.", ephemeral: true });
-                return;
+                return 6;
             }
         } else {
             console.log("Invalid date.");
-            await interaction.reply({ content: "Invalid date.", ephemeral: true });
-            return;
+            return 7;
         }
 
         let content = "";
@@ -71,5 +68,7 @@ module.exports = {
         setTimeout(async () => {await require('../post-dmp.js')(interaction.client, data, date, queue)}, queue[date].timestamp - Date.now());
 
         await interaction.reply("Successfully queued DMP.");
+
+        return 0;
     },
 };

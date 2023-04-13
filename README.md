@@ -36,8 +36,8 @@ My code is publicly available on GitHub! You can check it out [here](https://git
     * Move json files into own folder
     * I'm sure there's more code I can reorganize into separate files
     * Remove unnecessary `console.log`s
-    * List default replies in `config.json`
-      * only as one attribute though, not multiple
+    * ~~List default replies in `config.json`~~
+      * ~~only as one attribute though, not multiple~~
       * ~~send response on "invalid format" log~~
 3. ~~Leaderboard command~~
     * ~~Don't re-check an answer if a user's already gotten it correct~~

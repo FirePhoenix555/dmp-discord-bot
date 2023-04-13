@@ -22,8 +22,7 @@ module.exports = {
     async execute(interaction) {
         // checking if the user is allowed to use this command (whitelist)
         if (!validUsers.includes(interaction.user.id)) {
-            await interaction.reply({ content: "Sorry, you are not authorized to use this command.", ephemeral: true });
-            return;
+            return 1;
         }
 
         const channel = interaction.client.channels.cache.get(channelId);
@@ -41,8 +40,7 @@ module.exports = {
             if (interaction.options.get("date")) {
                 date = interaction.options.get("date").value;
                 if (!/\d\d\d\d-\d\d-\d\d/.test(date)) {
-                    await interaction.reply({ content: "Invalid date format.", ephemeral: true });
-                    return;
+                    return 6;
                 }
             }
             else date = formatTimestamp(message.createdTimestamp);
@@ -68,6 +66,8 @@ module.exports = {
 
             await interaction.reply("Successfully archived.");
         }).catch(console.error);
+
+        return 0;
     },
 };
 

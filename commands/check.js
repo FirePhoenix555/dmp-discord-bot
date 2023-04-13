@@ -29,8 +29,7 @@ module.exports = {
             }
         }
         if (validUser) {
-            // await interaction.reply({ content: "Sorry, you are not authorized to use this command.", ephemeral: true });
-            // return;
+            // return 1;
         }
 
 
@@ -39,26 +38,22 @@ module.exports = {
         let archive = require('../archives.json');
 
         if (!archive || Object.keys(archive).length == 0) {
-            await interaction.reply({ content: "Unfortunately, there are no DMPs currently in my archive. Please try again later.", ephemeral: true });
-            return;
+            return 2;
         }
 
         let date;
         if (interaction.options.get("date")) {
             date = interaction.options.get("date").value;
             if (!archive[date]) {
-                await interaction.reply({ content: "That DMP doesn't exist! It probably just hasn't been archived yet...", ephemeral: true });
-                return;
+                return 3;
             } else if (!/\d\d\d\d-\d\d-\d\d/.test(date)) {
-                await interaction.reply({ content: "Invalid date format.", ephemeral: true });
-                return;
+                return 6;
             }
         }
         else date = getLastDate(archive);
 
         if (/^\|\|.*\|\|$/.test(answer)) {
-            await interaction.reply({ content: "Your answer shouldn't be in spoilers when you're using /check.", ephemeral: true });
-            return;
+            return 9;
 
             // answer = answer.match(/^\|\|(.*)\|\|$/)[1];
         }
@@ -77,8 +72,7 @@ module.exports = {
             let userInfo = leaderboard[user];
 
             if (date in userInfo) {
-                await interaction.reply({ content: "You've already gotten this DMP correct!", ephemeral: true });
-                return;
+                return 8;
             }
 
             userInfo[date] = true;
@@ -91,8 +85,10 @@ module.exports = {
         } else if (correct == 0) { // incorrect answer
             await interaction.reply({ content: "Incorrect.", ephemeral: true });
         } else { // error
-            await interaction.reply({ content: "Invalid format.", ephemeral: true });
+            return 5;
         }
+        
+        return 0;
     },
 };
 

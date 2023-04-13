@@ -24,8 +24,7 @@ module.exports = {
         }
         
         if (!output) {
-            await interaction.reply({ content: "Unfortunately there is no current leaderboard. Go ahead and answer a DMP to show up here!", ephemeral: true });
-            return;
+            return 4;
         }
 
         let embed = new Discord.EmbedBuilder()
@@ -35,5 +34,7 @@ module.exports = {
             .setTimestamp();
 
         await interaction.reply({embeds: [embed]});
+
+        return 0;
     },
 };
