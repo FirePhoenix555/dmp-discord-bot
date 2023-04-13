@@ -55,6 +55,13 @@ module.exports = {
             }
         }
         else date = getLastDate(archive);
+
+        if (/^||.*||$/.test(answer)) {
+            await interaction.reply({ content: "Your answer shouldn't be in spoilers when you're using /check.", ephemeral: true });
+            return;
+
+            // answer = answer.match(/^||(.*)||$/)[1];
+        }
         
         let correct = check(answer, archive[date].answer);
         if (correct == 1) { // correct answer
