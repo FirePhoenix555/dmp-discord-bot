@@ -49,8 +49,8 @@ My code is publicly available on GitHub! You can check it out [here](https://git
 4. semi-dmps?
 5. Host the bot online
     * Move database files onto an actual database
-6. Help / introduction command
-    * Pin in #dmp
+6. ~~Help / introduction command~~
+    * ~~Pin in #dmp~~
 7. ~~legacy command to archive dmps from link list~~
     * remove this when you're done archiving
       * back up `archives.json` after everything is archived
