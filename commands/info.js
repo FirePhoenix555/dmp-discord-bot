@@ -57,9 +57,10 @@ module.exports = {
         if (img) embed.setImage(img);
         if (validUsers.includes(user)) embed.addFields({name: 'Answer', value: dmp.answer})
 
-        embed.addFields(
-            { name: 'Content', value: dmp.content }
-        );
+        if (dmp.content)
+            embed.addFields(
+                { name: 'Content', value: dmp.content }
+            );
 
         await interaction.reply({ embeds: [embed], ephemeral: true });
 
