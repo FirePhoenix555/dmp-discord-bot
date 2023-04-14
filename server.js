@@ -12,7 +12,7 @@ client.once(Discord.Events.ClientReady, c => {
     for (let i = 0; i < Object.keys(queue).length; i++) {
         let date = Object.keys(queue)[i];
         let dmp = queue[date];
-        require('./schedule-dmp.js')(date, dmp);
+        require('./schedule-dmp.js')(client, queue, date);
     }
 });
 

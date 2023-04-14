@@ -65,7 +65,7 @@ module.exports = {
 
         await fs.writeFile('./queue.json', JSON.stringify(queue));
 
-        require('../schedule-dmp.js')(date, data);
+        require('../schedule-dmp.js')(interaction.client, queue, date);
 
         await interaction.reply("Successfully queued DMP.");
 
