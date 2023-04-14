@@ -116,7 +116,8 @@ function alphabetize(leaderboard) {
 
 // answer classes
 const mcq = /^[abcde]$/;
-const func = /^[a-z]\((.*?)\)=([a-z0-9.^/{}|_()%!\[\]+*-]*\1[a-z0-9.^/{}|_()%!\[\]+*-]*)$/;
+const func = /^[a-z]\(([^;=]*?)\)=([^;=]+)$/;
+const num = /^([^;=]+)$/;
 
 function check(given, actual) {
 
@@ -183,11 +184,28 @@ function parseUserInput(input) {
         "[+-]\\d*c$": "",
     });
 
-    // if "function" isn't already prefixed with f(x)= or f(y)=, add it
-    if (func.test("f(x)=" + i)) i = "f(x)=" + i;
-    else if (func.test("f(y)=" + i)) i = "f(y)=" + i;
-    else if (func.test("f(t)=" + i)) i = "f(t)=" + i;
+    let r = /([^a-z]|^)+([a-z])([^(a-z]+[^a-z]*[^)a-z]*([^a-z]|$)+|$)/;
+    if (num.test(i)) {
+        if (!r.test(i)) return "abc";
 
+        let v = i.match(r)[2];
+
+        if (["e", "c"].includes(v)) return i; // this shouldn't be interpreted as a variable-
+
+        console.log(i, v)
+        i = "f(" + v + ")=" + i;
+        console.log(i)
+    }
+
+    // console.log(i.match(r)[2]);
+
+    // let f2 = /^[a-z]\((.*?)\)=([a-z0-9.^/{}|_()%!\[\]+*-]*\1[a-z0-9.^/{}|_()%!\[\]+*-]*)$/;
+    // // if "function" isn't already prefixed with f(x)= or f(y)=, add it
+    // if (f2.test("f(y)=" + i)) i = "f(y)=" + i;
+    // else if (f2.test("f(t)=" + i)) i = "f(t)=" + i;
+    // else if (func.test("f(x)=" + i)) i = "f(x)=" + i;
+
+    console.log(i)
     return i;
 }
 
@@ -207,12 +225,12 @@ function checkAnswer(g, a) {
         
         let arr = g.match(func);
 
-        let gVar = arr[1];
-        let gf = arr[2].replaceAll(gVar, "x");
+        // let gVar = arr[1];
+        let gf = arr[2]//.replaceAll(gVar, "x");
 
         let aArr = a.match(func);
-        let aVar = aArr[1];
-        let af = aArr[2].replaceAll(aVar, "x");
+        // let aVar = aArr[1];
+        let af = aArr[2]//.replaceAll(aVar, "x");
 
         gf = gf.replaceAll(/([a-z]+)([x0-9])/g, "$1($2)"); // so you can't type "sinx" which mathjs doesn't know how to deal with
         af = af.replaceAll(/([a-z]+)([x0-9])/g, "$1($2)");
