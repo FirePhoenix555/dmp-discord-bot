@@ -8,15 +8,11 @@ const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds, 
 client.once(Discord.Events.ClientReady, c => {
 	console.log(`Ready! Logged in as ${c.user.tag}`);
 
-    let d = new Date();
     let queue = require("./queue.json");
-    let f = require('./post-dmp.js');
     for (let i = 0; i < Object.keys(queue).length; i++) {
         let date = Object.keys(queue)[i];
         let dmp = queue[date];
-        setTimeout(async () => {
-            await f(client, dmp, date, queue);
-        }, dmp.timestamp - d.valueOf());
+        require('./schedule-dmp.js')(date, dmp);
     }
 });
 
