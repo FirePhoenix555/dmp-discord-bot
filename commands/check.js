@@ -115,7 +115,7 @@ function alphabetize(leaderboard) {
 }
 
 // answer classes
-const mcq = /^[abcde]$/;
+const mcq = /^[abcd]$/;
 const func = /^[a-z]\((.*?)\)=([a-z0-9.^/{}|_()%!\[\]+*-]*\1[a-z0-9.^/{}|_()%!\[\]+*-]*)$/;
 
 function check(given, actual) {
@@ -193,8 +193,9 @@ function parseUserInput(input) {
 }
 
 function checkAnswer(g, a) {
+    let isemcq = a == "e" && mcq.test(g);
 
-    if (mcq.test(a)) {
+    if (isemcq || mcq.test(a)) {
         if (!mcq.test(g)) return 2;
 
         let absoluteG = g.replaceAll(/[^abcde]/g, "");
