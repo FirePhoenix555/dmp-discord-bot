@@ -51,7 +51,7 @@ module.exports = {
         let d = new Date(date + "T12:00:00.000-06:00"); // to post at noon CST / 1pm CDT
         let timestamp = d.valueOf();
 
-        if (timestamp > 2147483647) return 11;
+        if (timestamp - Date.now() > 2147483647) return 11;
         
         let data = {
             "message": {
