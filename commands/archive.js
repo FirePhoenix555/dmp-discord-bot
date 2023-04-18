@@ -60,6 +60,9 @@ module.exports = {
             };
 
             let archive = require('../archives.json');
+
+            if (archive[date]) return 10;
+
             archive[date] = data;
 
             await fs.writeFile('./archives.json', JSON.stringify(archive));

@@ -60,6 +60,9 @@ module.exports = {
             timestamp
         }
 
+        let archive = require('../archives.json');
+        if (archive[date]) return 10;
+
         let queue = require('../queue.json');
         queue[date] = data;
 

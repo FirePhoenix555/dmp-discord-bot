@@ -66,6 +66,9 @@ module.exports = {
                     let msg = await channel.messages.fetch(result.message);
 
                     let data = archiveFromMessage(msg, "PLACEHOLDER");
+                    
+                    if (archive[date]) return 10;
+
                     archive[date] = data;
 
                     //await interaction.followUp(date + " archived.");
