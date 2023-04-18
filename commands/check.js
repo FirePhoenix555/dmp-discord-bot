@@ -219,8 +219,11 @@ function checkAnswer(g, a) {
         gf = gf.replaceAll(/([a-z]+)([x0-9])/g, "$1($2)"); // so you can't type "sinx" which mathjs doesn't know how to deal with
         af = af.replaceAll(/([a-z]+)([x0-9])/g, "$1($2)");
 
-        return simplify(parse(gf)).equals(simplify(parse(af)));
-
+        try {
+            return simplify(parse(gf)).equals(simplify(parse(af)));
+        } catch {
+            return 2;
+        }
     } else {
         try {
             return simplify(parse(g)).evaluate() == simplify(parse(a)).evaluate();
