@@ -38,13 +38,21 @@ module.exports = {
 
         let user = interaction.user.id;
 
-        if (!(user in leaderboard)) {
-            leaderboard[user] = {};
+        let output;
+        if (validUsers.includes(user)) {
+            output = "Users that have solved this DMP:\n";
+
+            for (let u in leaderboard) {
+                if (date in leaderboard[u]) output += `<@${u}>\n`;
+            }
+        } else {
+            if (!(user in leaderboard)) {
+                leaderboard[user] = {};
+            }
+
+            let solved = date in leaderboard[user];
+            output = solved ? "You've solved this DMP already!" : "Unfortunately, you have yet to get this DMP correct.";
         }
-
-        let solved = date in leaderboard[user];
-
-        let output = solved ? "You've solved this DMP already!" : "Unfortunately, you have yet to get this DMP correct.";
 
         let embed = new Discord.EmbedBuilder()
             //.setColor(0x0099FF)
