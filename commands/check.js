@@ -196,7 +196,7 @@ function checkAnswer(g, a) {
     let isemcq = a == "e" && mcq.test(g);
 
     if (isemcq || mcq.test(a)) {
-        if (!mcq.test(g)) return 2;
+        if (!mcq.test(g) && !/e/.test(g)) return 2;
 
         let absoluteG = g.replaceAll(/[^abcde]/g, "");
         let absoluteA = a.replaceAll(/[^abcde]/g, "");
