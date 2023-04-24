@@ -18,6 +18,9 @@ module.exports = {
         .addStringOption(option =>
             option.setName('answer')
                 .setDescription('[LEGACY] The DMP\'s answer. Only set for past DMPs.'))
+        .addStringOption(option =>
+            option.setName('override')
+                .setDescription('Set this to anything if you want to override the date given. Removes warning on date overlap.'))
         ,
     async execute(interaction) {
         // checking if the user is allowed to use this command (whitelist)
@@ -61,7 +64,7 @@ module.exports = {
 
             let archive = require('../archives.json');
 
-            if (archive[date]) return 10;
+            if (archive[date] && !interaction.options.get("override").value) return 10;
 
             archive[date] = data;
 
