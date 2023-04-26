@@ -116,12 +116,14 @@ function alphabetize(leaderboard) {
 
 // answer classes
 const mcq = /^[abcd]$/;
-const func = /^[a-z]\((.*?)\)=([a-z0-9.^/{}|_()%!\[\]+*-]*\1[a-z0-9.^/{}|_()%!\[\]+*-]*)$/;
+const func = /^([a-z])\(([a-z])\)=/;
+const pureNum = /^([0-9.,]+)$/;
+const expr = /([^a-z]|^)+([a-z])([^(a-z]+[^a-z]*[^)a-z]*([^a-z]|$)+|$)/;
 
 function check(given, actual) {
 
-    let answers = actual.split(",");
-    let givens = given.split(",");
+    let answers = actual.split(";");
+    let givens = given.split(";");
 
     let correct = true;
 
@@ -130,8 +132,8 @@ function check(given, actual) {
         let g = givens[i].replaceAll("±", "+-");
 
         if (/\+-(.*)$/.test(g)) {
-            g = g.replaceAll(/\+-(.*)$/g, "$1,-$1");
-            let gn = g.split(",");
+            g = g.replaceAll(/\+-(.*)$/g, "$1;-$1");
+            let gn = g.split(";");
             givens.push(gn.slice(1).join(""));
             g = gn[0];
         }
@@ -167,12 +169,23 @@ function check(given, actual) {
 
 function multiReplace(str, obj) {
     for (key in obj) {
-        str = str.replaceAll(new RegExp(key, "g"), obj[key]);
+        let r = new RegExp(key, "g");
+        let i = 0;
+        while (r.test(str)) {
+            str = str.replaceAll(r, obj[key]);
+            i++;
+            if (i > 50) {
+                throw new Error("Too many replaces: infinite loop detected (or answer is too long)");
+                break;
+            }
+        }
     }
     return str;
 }
 
 function parseUserInput(input) {
+    let r = {};
+
     let i = input.toLowerCase().replaceAll(/\s/g, "");
 
     i = multiReplace(i, {
@@ -181,52 +194,71 @@ function parseUserInput(input) {
         "theta": "t",
         "√": "sqrt",
         "([⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖ𐞥ʳˢᵗᵘᵛʷˣʸᶻ]+)": "^($1)",
-        "[+-]\\d*c$": "",
+        "[+-]\\d*c$": "", // no +Cs
+        "([a-z]{2,})([^();=a-z])": "$1($2)", // no sqrtx
+        "log\\(([^;=]+)\\)": "log($1,10)", // replacing log base 10
+        "ln\\(([^;=]+)\\)": "log($1)", // replacing log base e
+        "log_([^;=])\\(([^;=]+)\\)": "log($2,$1)", // replacing log base (1 char)
+        "log_{([^;=]+)}\\(([^;=]+)\\)": "log($2,$1)" // replacing log base (2+ char)
     });
+    
+    if (mcq.test(i)) {
+        r.type = "mcq";
+    } else if (expr.test(i)) {
+        let f = "f"; // function
+        if (func.test(i)) f = i.match(func)[1];
+        let v = i.match(expr)[2] || i.match(func)[2]; // variable
 
-    // if "function" isn't already prefixed with f(x)= or f(y)=, add it
-    if (func.test("f(x)=" + i)) i = "f(x)=" + i;
-    else if (func.test("f(y)=" + i)) i = "f(y)=" + i;
-    else if (func.test("f(t)=" + i)) i = "f(t)=" + i;
+        if (["e", "c"].includes(v)) return {i}; // this shouldn't be interpreted as a variable-
 
-    return i;
+        if (func.test(i)) {
+            r.expr = i.replaceAll(new RegExp(func, "g"), "");
+        } else r.expr = i;
+
+        i = f + "(" + v + ")=" + i;
+
+        r.f = f;
+        r.v = v;
+        r.type = "expr";
+    } else if (pureNum.test(i)) {
+        r.type = "pureNum";
+    } else {
+        r.type = "other";
+    }
+
+    r.i = i;
+    return r;
 }
 
 function checkAnswer(g, a) {
     let isemcq = a == "e" && mcq.test(g);
+    
+    if (isemcq || a.type == "mcq") {
+        if (g.type != "mcq" && !/e/.test(g)) return 2;
 
-    if (isemcq || mcq.test(a)) {
-        if (!mcq.test(g) && !/e/.test(g)) return 2;
-
-        let absoluteG = g.replaceAll(/[^abcde]/g, "");
-        let absoluteA = a.replaceAll(/[^abcde]/g, "");
+        let absoluteG = g.i.replaceAll(/[^abcde]/g, "");
+        let absoluteA = a.i.replaceAll(/[^abcde]/g, "");
 
         return absoluteG == absoluteA;
 
-    } else if (func.test(a)) {
+    } else if (a.type == "pureNum") {
+        return parseFloat(a.i) == parseFloat(g.i);
 
-        if (!func.test(g)) return 2;
-        
-        let arr = g.match(func);
+    } else if (a.type == "expr") {
+        if (g.type == "mcq") return 2;
 
-        let gVar = arr[1];
-        let gf = arr[2].replaceAll(gVar, "x");
-
-        let aArr = a.match(func);
-        let aVar = aArr[1];
-        let af = aArr[2].replaceAll(aVar, "x");
-
-        gf = gf.replaceAll(/([a-z]+)([x0-9])/g, "$1($2)"); // so you can't type "sinx" which mathjs doesn't know how to deal with
-        af = af.replaceAll(/([a-z]+)([x0-9])/g, "$1($2)");
+        if (g.type == "pureNum" || g.type == "other") {
+            g.expr = g.i;
+        }
 
         try {
-            return simplify(parse(gf)).equals(simplify(parse(af)));
+            return simplify(parse(g.expr)).equals(simplify(parse(a.expr)));
         } catch {
             return 2;
         }
     } else {
         try {
-            return simplify(parse(g)).evaluate() == simplify(parse(a)).evaluate();
+            return simplify(parse(g.i)).evaluate() == simplify(parse(a.i)).evaluate();
         } catch {
             return 2;
         }
