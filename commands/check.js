@@ -209,7 +209,7 @@ function parseUserInput(input) {
         if (func.test(i)) f = i.match(func)[1];
         let v = i.match(expr)[2] || i.match(func)[2]; // variable
 
-        if (["e", "c"].includes(v)) return {i}; // this shouldn't be interpreted as a variable-
+        if (["e", "c"].includes(v)) return {i, type: "other"}; // this shouldn't be interpreted as a variable-
 
         if (func.test(i)) {
             r.expr = i.replaceAll(new RegExp(func, "g"), "");
