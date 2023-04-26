@@ -21,7 +21,10 @@ module.exports = {
                 .setDescription('Any images to send with the DMP.'))
         .addStringOption(option =>
             option.setName('content')
-                .setDescription('The content to send with the DMP.')),
+                .setDescription('The content to send with the DMP.'))
+        .addStringOption(option =>
+            option.setName('override')
+                .setDescription('Set this to anything if you want to override the date given. Removes warning on date overlap.')),
     async execute(interaction) {
         // checking if the user is allowed to use this command (whitelist)
         if (!validUsers.includes(interaction.user.id)) {
@@ -50,6 +53,8 @@ module.exports = {
 
         let d = new Date(date + "T12:00:00.000-06:00"); // to post at noon CST / 1pm CDT
         let timestamp = d.valueOf();
+
+        if (timestamp - Date.now() > 2147483647) return 11;
         
         let data = {
             "message": {
@@ -60,7 +65,11 @@ module.exports = {
             timestamp
         }
 
+        let archive = require('../archives.json');
+        if (archive[date] && !interaction.options.get("override")) return 10;
+
         let queue = require('../queue.json');
+        if (queue[date] && !interaction.options.get("override")) return 10;
         queue[date] = data;
 
         await fs.writeFile('./queue.json', JSON.stringify(queue));

@@ -115,7 +115,7 @@ function alphabetize(leaderboard) {
 }
 
 // answer classes
-const mcq = /^[abcde]$/;
+const mcq = /^[abcd]$/;
 const func = /^([a-z])\(([a-z])\)=/;
 const pureNum = /^([0-9.,]+)$/;
 const expr = /([^a-z]|^)+([a-z])([^(a-z]+[^a-z]*[^)a-z]*([^a-z]|$)+|$)/;
@@ -191,6 +191,7 @@ function parseUserInput(input) {
     i = multiReplace(i, {
         "π": "pi",
         "θ": "t",
+        "theta": "t",
         "√": "sqrt",
         "([⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖ𐞥ʳˢᵗᵘᵛʷˣʸᶻ]+)": "^($1)",
         "[+-]\\d*c$": "", // no +Cs
@@ -230,8 +231,10 @@ function parseUserInput(input) {
 }
 
 function checkAnswer(g, a) {
-    if (a.type == "mcq") {
-        if (g.type != "mcq") return 2;
+    let isemcq = a == "e" && mcq.test(g);
+    
+    if (isemcq || a.type == "mcq") {
+        if (g.type != "mcq" && !/e/.test(g)) return 2;
 
         let absoluteG = g.i.replaceAll(/[^abcde]/g, "");
         let absoluteA = a.i.replaceAll(/[^abcde]/g, "");
@@ -248,8 +251,11 @@ function checkAnswer(g, a) {
             g.expr = g.i;
         }
 
-        return simplify(parse(g.expr)).equals(simplify(parse(a.expr)));
-
+        try {
+            return simplify(parse(g.expr)).equals(simplify(parse(a.expr)));
+        } catch {
+            return 2;
+        }
     } else {
         try {
             return simplify(parse(g.i)).evaluate() == simplify(parse(a.i)).evaluate();
