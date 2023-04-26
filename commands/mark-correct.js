@@ -73,7 +73,7 @@ module.exports = {
 
             await interaction.reply({ content: `<@${user}> got the DMP for ${date} correct!`, "allowedMentions": { "users" : []}});
         } else {
-            await interaction.reply({ content: "Noted.", ephemeral: true });
+            await interaction.reply({ content: "Noted." });
         }
         
         return 0;
