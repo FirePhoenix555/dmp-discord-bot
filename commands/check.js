@@ -242,6 +242,8 @@ function checkAnswer(g, a) {
         return absoluteG == absoluteA;
 
     } else if (a.type == "pureNum") {
+        if (g.type != "pureNum" && !/e/.test(g.i)) return 2;
+        else if (/e/.test(g.i)) return false;
         return parseFloat(a.i) == parseFloat(g.i);
 
     } else if (a.type == "expr") {
