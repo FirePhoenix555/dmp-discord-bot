@@ -121,8 +121,8 @@ const num = /^([^;=]+)$/;
 
 function check(given, actual) {
 
-    let answers = actual.split(",");
-    let givens = given.split(",");
+    let answers = actual.split(";");
+    let givens = given.split(";");
 
     let correct = true;
 
@@ -131,8 +131,8 @@ function check(given, actual) {
         let g = givens[i].replaceAll("±", "+-");
 
         if (/\+-(.*)$/.test(g)) {
-            g = g.replaceAll(/\+-(.*)$/g, "$1,-$1");
-            let gn = g.split(",");
+            g = g.replaceAll(/\+-(.*)$/g, "$1;-$1");
+            let gn = g.split(";");
             givens.push(gn.slice(1).join(""));
             g = gn[0];
         }
