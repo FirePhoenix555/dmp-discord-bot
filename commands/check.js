@@ -213,9 +213,10 @@ function parseUserInput(input) {
 
         if (func.test(i)) {
             r.expr = i.replaceAll(new RegExp(func, "g"), "");
-        } else r.expr = i;
-
-        i = f + "(" + v + ")=" + i;
+        } else {
+            r.expr = i;
+            i = f + "(" + v + ")=" + i;
+        }
 
         r.f = f;
         r.v = v;
