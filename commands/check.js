@@ -234,7 +234,7 @@ function checkAnswer(g, a) {
     let isemcq = a == "e" && mcq.test(g);
     
     if (isemcq || a.type == "mcq") {
-        if (g.type != "mcq" && !/e/.test(g)) return 2;
+        if (g.type != "mcq" && !/e/.test(g.i)) return 2;
 
         let absoluteG = g.i.replaceAll(/[^abcde]/g, "");
         let absoluteA = a.i.replaceAll(/[^abcde]/g, "");
