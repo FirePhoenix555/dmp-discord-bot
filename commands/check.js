@@ -189,6 +189,7 @@ function parseUserInput(input) {
     let i = input.toLowerCase().replaceAll(/\s/g, "");
 
     i = multiReplace(i, {
+        "°": "",
         "π": "pi",
         "θ": "t",
         "theta": "t",
