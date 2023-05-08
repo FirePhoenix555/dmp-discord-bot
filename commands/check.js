@@ -18,18 +18,9 @@ module.exports = {
                 .setMinLength(10)),
     async execute(interaction) {
         // checking if the user is NOT allowed to use this command (whitelist)
-        let validUser = false;
-        for (let i = 0; i < validUsers.length; i++) {
-            let userid = validUsers[i];
-            if (interaction.user.id == userid) {
-                validUser = true;
-                break;
-            }
-        }
-        if (validUser) {
+        if (validUsers.includes(interaction.user.id)) {
             // return 1;
         }
-
 
         const answer = interaction.options.get("answer").value;
 
