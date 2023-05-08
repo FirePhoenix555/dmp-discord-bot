@@ -1,9 +1,7 @@
 const Discord = require('discord.js');
  const { validUsers } = require('../config.json');
 const fs = require('fs').promises;
-const { simplify, parse, evaluate } = require("mathjs");
-
-const marginOfError = 0.001;
+const { simplify, parse } = require("mathjs");
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()
