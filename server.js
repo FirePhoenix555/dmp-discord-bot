@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
-const { token, channelId, roleId, commandsDisabled, validUsers, responseCodes } = require('./config.json');
+const { token, commandsDisabled, validUsers, responseCodes } = require('./config.json');
 require("./register-commands.js");
-const fs = require('fs').promises;
 
 const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.MessageContent] });
 
@@ -11,7 +10,6 @@ client.once(Discord.Events.ClientReady, c => {
     let queue = require("./queue.json");
     for (let i = 0; i < Object.keys(queue).length; i++) {
         let date = Object.keys(queue)[i];
-        let dmp = queue[date];
         require('./schedule-dmp.js')(client, queue, date);
     }
 });
@@ -27,9 +25,7 @@ function addCommand(cmd) {
         console.log(`[WARNING] The command ${cmd} is missing a required "data" or "execute" property.`);
 }
 
-require("./getCommands.js").forEach(cmd => {
-    addCommand(cmd);
-})
+require("./getCommands.js").forEach(addCommand);
 
 client.on(Discord.Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;

@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const { validUsers } = require('../config.json');
-const fs = require('fs').promises;
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()

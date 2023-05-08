@@ -26,8 +26,6 @@ module.exports = {
         const chnId = interaction.options.get("channel_id").value;
         let chn = await interaction.client.channels.fetch(chnId);
 
-        
-
         let archives = await chn.messages.fetch({ limit: 100 });
         // let ks = Array.from(archives.keys());
 
