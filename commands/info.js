@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { validUsers } = require('../config.json');
+const { validUsers } = require('../json/config.json');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()
@@ -12,7 +12,7 @@ module.exports = {
                 .setMinLength(10)
                 .setRequired(true)),
     async execute(interaction) {
-        let archive = require('../archives.json');
+        let archive = require('../json/archives.json');
 
         if (!archive || Object.keys(archive).length == 0) {
             return 2;
@@ -33,7 +33,7 @@ module.exports = {
             else img = dmp.attachments[0];
         }
 
-        let leaderboard = require('../leaderboard.json');
+        let leaderboard = require('../json/leaderboard.json');
 
         let user = interaction.user.id;
 

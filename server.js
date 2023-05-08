@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { token, commandsDisabled, validUsers, responseCodes } = require('./config.json');
+const { token, commandsDisabled, validUsers, responseCodes } = require('./json/config.json');
 const { genCommands } = require('./util/commands');
 require("./register-commands.js");
 
@@ -8,7 +8,7 @@ const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds, 
 client.once(Discord.Events.ClientReady, c => {
 	console.log(`Ready! Logged in as ${c.user.tag}`);
 
-    let queue = require("./queue.json");
+    let queue = require("./json/queue.json");
     for (let i = 0; i < Object.keys(queue).length; i++) {
         let date = Object.keys(queue)[i];
         require('./schedule-dmp.js')(client, queue, date);

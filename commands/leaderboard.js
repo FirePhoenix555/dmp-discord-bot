@@ -5,7 +5,7 @@ module.exports = {
         .setName('leaderboard')
         .setDescription('Displays the DMP solving leaderboard.'),
     async execute(interaction) {
-        let leaderboard = require('../leaderboard.json');
+        let leaderboard = require('../json/leaderboard.json');
 
         let rank = [];
         for (user in leaderboard) {

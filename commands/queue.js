@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { validUsers } = require('../config.json');
+const { validUsers } = require('../json/config.json');
 const fs = require('fs').promises;
 
 module.exports = {
@@ -65,14 +65,14 @@ module.exports = {
             timestamp
         }
 
-        let archive = require('../archives.json');
+        let archive = require('../json/archives.json');
         if (archive[date] && !interaction.options.get("override")) return 10;
 
-        let queue = require('../queue.json');
+        let queue = require('../json/queue.json');
         if (queue[date] && !interaction.options.get("override")) return 10;
         queue[date] = data;
 
-        await fs.writeFile('./queue.json', JSON.stringify(queue));
+        await fs.writeFile('./json/queue.json', JSON.stringify(queue));
 
         require('../schedule-dmp.js')(interaction.client, queue, date);
 

@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { validUsers } = require('../config.json');
+const { validUsers } = require('../json/config.json');
 const { formatDate } = require('../util/date.js');
 const { archiveFromMessage } = require('../util/messages.js');
 const fs = require('fs').promises;
@@ -38,7 +38,7 @@ module.exports = {
         for (let [n, message] of archives) {
             await interaction.followUp("Archiving message " + n + "...");
 
-            let archive = require('../archives.json');
+            let archive = require('../json/archives.json');
 
             //let message = archives[ks[n]];
 
@@ -77,7 +77,7 @@ module.exports = {
                 }
             }
 
-            await fs.writeFile('./archives.json', JSON.stringify(archive));
+            await fs.writeFile('./json/archives.json', JSON.stringify(archive));
 
             await interaction.followUp("Archived.");
         }

@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { channelId, validUsers } = require('../config.json');
+const { channelId, validUsers } = require('../json/config.json');
 const { formatTimestamp } = require('../util/date.js');
 const { archiveFromMessage } = require('../util/messages');
 const fs = require('fs').promises;
@@ -49,13 +49,13 @@ module.exports = {
 
             let data = archiveFromMessage(message, answer);
 
-            let archive = require('../archives.json');
+            let archive = require('../json/archives.json');
 
             if (archive[date] && !interaction.options.get("override").value) return 10;
 
             archive[date] = data;
 
-            await fs.writeFile('./archives.json', JSON.stringify(archive));
+            await fs.writeFile('./json/archives.json', JSON.stringify(archive));
 
             await interaction.reply("Successfully archived.");
         }).catch(console.error);

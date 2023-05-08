@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { validUsers } = require('../config.json');
+const { validUsers } = require('../json/config.json');
 const { getLastDate } = require('../util/date.js');
 const { alphabetize } = require('../util/alphabetize.js');
 const fs = require('fs').promises;
@@ -36,7 +36,7 @@ module.exports = {
             return 5;
         }
 
-        let archive = require('../archives.json');
+        let archive = require('../json/archives.json');
 
         if (!archive || Object.keys(archive).length == 0) {
             return 2;
@@ -56,7 +56,7 @@ module.exports = {
         if (isCorrect) {
             // add to leaderboard
             let user = interaction.options.get("user").value;
-            let leaderboard = require('../leaderboard.json');
+            let leaderboard = require('../json/leaderboard.json');
 
             if (!(user in leaderboard)) {
                 leaderboard[user] = {};
@@ -71,7 +71,7 @@ module.exports = {
             userInfo[date] = true;
             leaderboard[user] = userInfo;
 
-            await fs.writeFile('./leaderboard.json', JSON.stringify(alphabetize(leaderboard)));
+            await fs.writeFile('./json/leaderboard.json', JSON.stringify(alphabetize(leaderboard)));
 
             await interaction.reply({ content: `<@${user}> got the DMP for ${date} correct!`, "allowedMentions": { "users" : []}});
         } else {

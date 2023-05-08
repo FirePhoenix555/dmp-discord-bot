@@ -33,7 +33,7 @@ My code is publicly available on GitHub! You can check it out [here](https://git
 1. ~~Read from archive command?~~
 2. Refactoring
     * ~~Move date code into its own file~~
-    * Move json files into own folder
+    * ~~Move json files into own folder~~
     * ~~I'm sure there's more code I can reorganize into separate files~~
     * Remove unnecessary `console.log`s
     * ~~List default replies in `config.json`~~
