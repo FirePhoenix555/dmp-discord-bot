@@ -190,6 +190,7 @@ function parseUserInput(input) {
 
     i = multiReplace(i, {
         "°": "",
+        "$": "",
         "π": "pi",
         "θ": "t",
         "theta": "t",
