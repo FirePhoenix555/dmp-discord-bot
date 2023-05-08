@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 const { validUsers } = require('../config.json');
+const { formatDate } = require('../util/date.js');
+const { archiveFromMessage } = require('../util/messages.js');
 const fs = require('fs').promises;
 
 module.exports = {
@@ -86,14 +88,6 @@ module.exports = {
     },
 };
 
-function formatDate(date) {
-    let day = date.getDate().toLocaleString('en-US', { timeZone: 'America/Chicago', minimumIntegerDigits: 2 });
-    let month = (date.getMonth() + 1).toLocaleString('en-US', { timeZone: 'America/Chicago', minimumIntegerDigits: 2 });
-    let year = date.getFullYear().toLocaleString('en-US', { timeZone: 'America/Chicago', minimumIntegerDigits: 4 }).replace(",", "");
-
-    return year + "-" + month + "-" + day;
-}
-
 function parseDiscordLink(link) {
     // https://discord.com/channels/[serverid]/[channelid]/[msgid]
     let s = link.split("/");
@@ -106,25 +100,4 @@ function parseDiscordLink(link) {
         channel: channelId,
         message: msgId
     }
-}
-
-function archiveFromMessage(message, answer) {
-    // getting attachments
-    let att = [];
-    message.attachments.forEach(attachment => {
-        att.push(attachment.url);
-    });
-
-    let data = {
-        "url": message.url,
-        "channelId": message.channelId,
-        "id": message.id,
-        "content": message.content,
-        "embeds": message.embeds,
-        "attachments": att,
-        "answer": answer,
-        "timestamp": message.createdTimestamp
-    };
-
-    return data;
 }

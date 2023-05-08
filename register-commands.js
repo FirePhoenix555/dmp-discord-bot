@@ -1,17 +1,11 @@
 const Discord = require('discord.js');
 const { token, clientId } = require('./config.json');
+const { genCommands } = require('./util/commands.js');
 
 let commands = [];
-
-function addCommand(cmd) {
-    if ('data' in cmd && 'execute' in cmd)
-        commands.push(cmd.data.toJSON());
-    else
-        console.log(`[WARNING] The command ${cmd} is missing a required "data" or "execute" property.`);
-}
-
-require("./getCommands.js").forEach(addCommand);
-
+genCommands(cmd => {
+	commands.push(cmd.data.toJSON());
+});
 
 // Registering commands
 const rest = new Discord.REST({ version: '10' }).setToken(token);

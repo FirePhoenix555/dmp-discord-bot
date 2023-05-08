@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const { token, commandsDisabled, validUsers, responseCodes } = require('./config.json');
+const { genCommands } = require('./util/commands');
 require("./register-commands.js");
 
 const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.MessageContent] });
@@ -17,15 +18,9 @@ client.once(Discord.Events.ClientReady, c => {
 client.login(token);
 
 client.commands = new Discord.Collection();
-
-function addCommand(cmd) {
-    if ('data' in cmd && 'execute' in cmd)
-        client.commands.set(cmd.data.name, cmd);
-    else
-        console.log(`[WARNING] The command ${cmd} is missing a required "data" or "execute" property.`);
-}
-
-require("./getCommands.js").forEach(addCommand);
+genCommands(cmd => {
+    client.commands.set(cmd.data.name, cmd);
+});
 
 client.on(Discord.Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;

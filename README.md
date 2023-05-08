@@ -32,9 +32,9 @@ My code is publicly available on GitHub! You can check it out [here](https://git
 ### Todo Eventually
 1. ~~Read from archive command?~~
 2. Refactoring
-    * Move date code into its own file
+    * ~~Move date code into its own file~~
     * Move json files into own folder
-    * I'm sure there's more code I can reorganize into separate files
+    * ~~I'm sure there's more code I can reorganize into separate files~~
     * Remove unnecessary `console.log`s
     * ~~List default replies in `config.json`~~
       * ~~only as one attribute though, not multiple~~

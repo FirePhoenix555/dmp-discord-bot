@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 const { channelId, validUsers } = require('../config.json');
+const { formatTimestamp } = require('../util/date.js');
+const { archiveFromMessage } = require('../util/messages');
 const fs = require('fs').promises;
 
 module.exports = {
@@ -33,12 +35,6 @@ module.exports = {
 
         channel.messages.fetch(msgId)
         .then(async message => {
-            // getting attachments
-            let att = [];
-            message.attachments.forEach(attachment => {
-                att.push(attachment.url);
-            });
-
             let date;
             if (interaction.options.get("date")) {
                 date = interaction.options.get("date").value;
@@ -51,16 +47,7 @@ module.exports = {
             let answer = "PLACEHOLDER";
             if (interaction.options.get("answer")) answer = interaction.options.get("answer").value;
 
-            let data = {
-                "url": message.url,
-                "channelId": message.channelId,
-                "id": message.id,
-                "content": message.content,
-                "embeds": message.embeds,
-                "attachments": att,
-                "answer": answer,
-                "timestamp": message.createdTimestamp
-            };
+            let data = archiveFromMessage(message, answer);
 
             let archive = require('../archives.json');
 
@@ -76,12 +63,3 @@ module.exports = {
         return 0;
     },
 };
-
-function formatTimestamp(timestamp) {
-    let date = new Date(timestamp);
-    let day = date.getDate().toLocaleString('en-US', { timeZone: 'America/Chicago', minimumIntegerDigits: 2 });
-    let month = (date.getMonth() + 1).toLocaleString('en-US', { timeZone: 'America/Chicago', minimumIntegerDigits: 2 });
-    let year = date.getFullYear().toLocaleString('en-US', { timeZone: 'America/Chicago', minimumIntegerDigits: 4 }).replace(",", "");
-
-    return year + "-" + month + "-" + day;
-}

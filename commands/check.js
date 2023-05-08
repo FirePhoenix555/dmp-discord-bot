@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
- const { validUsers } = require('../config.json');
+const { validUsers } = require('../config.json');
+const { getLastDate } = require('../util/date.js');
+const { alphabetize } = require('../util/alphabetize.js');
 const fs = require('fs').promises;
 const { simplify, parse } = require("mathjs");
 
@@ -80,28 +82,6 @@ module.exports = {
         return 0;
     },
 };
-
-function getLastDate(archive) {
-    let latest = 0;
-    let ls = "";
-    for (s in archive) {
-        let timestamp = archive[s].timestamp;
-        if (timestamp > latest) {
-            latest = timestamp;
-            ls = s;
-        }
-    }
-    return ls;
-}
-
-function alphabetize(leaderboard) {
-    let l = {};
-    let keys = Object.keys(leaderboard).sort();
-    for (let i = 0; i < keys.length; i++) {
-        l[keys[i]] = leaderboard[keys[i]];
-    }
-    return l;
-}
 
 // answer classes
 const mcq = /^[abcd]$/;
