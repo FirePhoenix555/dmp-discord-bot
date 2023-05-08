@@ -51,7 +51,7 @@ module.exports = {
 
             let archive = require('../json/archives.json');
 
-            if (archive[date] && !interaction.options.get("override").value) return 10;
+            if (archive[date] && !interaction.options.get("override")) return 10;
 
             archive[date] = data;
 
