@@ -23,6 +23,7 @@ module.exports = {
                     { name: 'Admin Commands', value: helpMessages.intro2 },
                     { name: '`/archive`', value: helpMessages.archive },
                     { name: '`/queue`', value: helpMessages.queue },
+                    { name: '`/grade`', value: helpMessages.grade },
                     { name: 'Code', value: helpMessages.foot }
                 );
 
