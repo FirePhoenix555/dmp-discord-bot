@@ -61,7 +61,7 @@ My code is publicly available on GitHub! You can check it out [here](https://git
     * Matrix user input class (format convert to mathjs `[a b; c d]`)
     * ~~Detect variable with `/[^a-z]+([a-z]+)[^a-z]+/` or smth~~
     * Support for `x=1` format / lines (`y=mx+b`) / equation
-    * Support for complex numbers
+    * ~~Support for complex numbers~~
 11. Set bot ~~status~~/nickname/profile pic
 12. ~~Move `/help` descriptions to config file~~
 13. Add `/help [command]`
