@@ -1,4 +1,4 @@
-const { channelId, roleId } = require('./config.json');
+const { channelId, roleId } = require('./json/config.json');
 const fs = require('fs').promises;
 
 module.exports = async function postDMP(client, dmp, date, queue) {
@@ -22,7 +22,7 @@ module.exports = async function postDMP(client, dmp, date, queue) {
     let message = await channel.send({ content: `<@&${roleId}>`, embeds: [embed] });
 
     // add to archive
-    const archive = require("./archives.json");
+    const archive = require("./json/archives.json");
     let data = {
         "url": message.url,
         "channelId": message.channelId,
@@ -35,11 +35,11 @@ module.exports = async function postDMP(client, dmp, date, queue) {
     };
 
     archive[date] = data;
-    await fs.writeFile('./archives.json', JSON.stringify(archive));
+    await fs.writeFile('./json/archives.json', JSON.stringify(archive));
 
     // remove from queue
     delete queue[date];
-    await fs.writeFile('./queue.json', JSON.stringify(queue));
+    await fs.writeFile('./json/queue.json', JSON.stringify(queue));
 
     console.log("DMP posted.");
 }
