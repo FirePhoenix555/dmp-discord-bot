@@ -9,7 +9,8 @@ Hello! I'm the official bot for Daily Math Problems! I help out my programmer, [
 And, if you happen to be my programmer (I don't know why you're here for this but I suppose I'll help anyway), here are some of your commands:
 
 `/archive`: Archive a single DMP to the database! You can add DMPs to my archive file using this command. Simply provide the ID of the message and the date and answer of the DMP, and I'll take care of the archiving for you.  
-`/queue`: Queue a DMP to be posted on a specified date! Your DMP will be posted at 12 PM CST / 1 PM CDT on the specified day. Make sure to provide the date, answer, and any content or attachments for the DMP.
+`/queue`: Queue a DMP to be posted on a specified date! Your DMP will be posted at 12 PM CST / 1 PM CDT on the specified day. Make sure to provide the date, answer, and any content or attachments for the DMP.  
+`/grade`: Grade someone's response to a DMP! Use `/grade [user] true` to mark an answer as correct and `/grade [user] false` to mark an answer incorrect.
 
 My code is publicly available on GitHub! You can check it out [here](https://github.com/FirePhoenix555/dmp-discord-bot).
 
