@@ -63,4 +63,4 @@ My code is publicly available on GitHub! You can check it out [here](https://git
 13. Set bot ~~status~~/nickname/profile pic
 14. Move `/help` descriptions to config file
 15. Add `/help [command]`
-16. Add replacement for superscript characters to their corresponding normal ones (so that they work properly with mathjs)
+16. ~~Add replacement for superscript characters to their corresponding normal ones (so that they work properly with mathjs)~~

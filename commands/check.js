@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const { validUsers } = require('../json/config.json');
+const superscriptReplace = require('../json/superscript-replace.json');
 const { getLastDate } = require('../util/date.js');
 const { alphabetize } = require('../util/alphabetize.js');
 const fs = require('fs').promises;
@@ -157,6 +158,9 @@ function parseUserInput(input) {
 
     let i = input.toLowerCase().replaceAll(/\s/g, "");
 
+    i = i.replaceAll(/([⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖ𐞥ʳˢᵗᵘᵛʷˣʸᶻ]+)/g, "^($1)");
+    i = multiReplace(i, superscriptReplace);
+
     i = multiReplace(i, {
         "°": "",
         "\\$": "",
@@ -164,7 +168,6 @@ function parseUserInput(input) {
         "θ": "t",
         "theta": "t",
         "√": "sqrt",
-        "([⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖ𐞥ʳˢᵗᵘᵛʷˣʸᶻ]+)": "^($1)",
         "[+-]\\d*c$": "", // no +Cs
         "([a-z]{2,})([^();=a-z])": "$1($2)", // no sqrtx
         "log\\(([^;=]+)\\)": "log($1,10)", // replacing log base 10
