@@ -13,6 +13,8 @@ client.once(Discord.Events.ClientReady, c => {
         let date = Object.keys(queue)[i];
         require('./schedule-dmp.js')(client, queue, date);
     }
+
+    client.user.setActivity("for new DMPs...", { type: Discord.ActivityType.Watching });
 });
 
 client.login(token);
