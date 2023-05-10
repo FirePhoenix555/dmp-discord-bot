@@ -64,5 +64,5 @@ My code is publicly available on GitHub! You can check it out [here](https://git
     * ~~Support for complex numbers~~
 11. Set bot ~~status~~/nickname/profile pic
 12. ~~Move `/help` descriptions to config file~~
-13. Add `/help [command]`
+13. ~~Add `/help [command]`~~
 14. ~~Add replacement for superscript characters to their corresponding normal ones (so that they work properly with mathjs)~~
