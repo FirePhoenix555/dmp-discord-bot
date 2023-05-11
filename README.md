@@ -63,7 +63,15 @@ My code is publicly available on GitHub! You can check it out [here](https://git
     * ~~Detect variable with `/[^a-z]+([a-z]+)[^a-z]+/` or smth~~
     * Support for `x=1` format / lines (`y=mx+b`) / equation
     * ~~Support for complex numbers~~
+    * Support for points (`(x,y)`)
+    * Support for strings
+      * true/false: yes/no, y/n, t/f
 11. Set bot ~~status~~/nickname/profile pic
 12. ~~Move `/help` descriptions to config file~~
 13. ~~Add `/help [command]`~~
 14. ~~Add replacement for superscript characters to their corresponding normal ones (so that they work properly with mathjs)~~
+15. Remove spoiler warning and just reformat answer instead (later)
+16. Does queueing several days in advance work? (images might be deleted?)
+17. `/ban` command (for trolling / spamming / ~xss)
+18. `2xsqrt()` -> `2x*sqrt()`?
+19. Rework invalid format errors: invalid answer format (answer is badly formatted) and invalid command format (bad date, etc)
