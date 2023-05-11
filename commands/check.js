@@ -89,6 +89,9 @@ const mcq = /^[abcd]$/;
 const func = /^([a-z])\(([a-z])\)=/;
 const pureNum = /^([0-9.,]+)$/;
 const expr = /([^a-z]|^)+([a-z])([^(a-z]+[^a-z]*[^)a-z]*([^a-z]|$)+|$)/;
+const mat = /\[?(\[([^,\[\] ]+[, ]?)+\][, ]?)+\]?/; // [a b] [c d] OR [a,b][c,d] OR [[a,b],[c,d]], ETC
+const matrow = /\[([^,\[\] ]+[, ]?)+\]/g;
+const matentry = /[^,\[\] ]+/g;
 
 function check(given, actual) {
 
@@ -153,9 +156,7 @@ function multiReplace(str, obj) {
     return str;
 }
 
-function parseUserInput(input) {
-    let r = {};
-
+function sanitize(input) {
     let i = input.toLowerCase().replaceAll(/\s/g, "");
 
     i = i.replaceAll(/([⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖ𐞥ʳˢᵗᵘᵛʷˣʸᶻ]+)/g, "^($1)");
@@ -175,6 +176,32 @@ function parseUserInput(input) {
         "log_([^;=])\\(([^;=]+)\\)": "log($2,$1)", // replacing log base (1 char)
         "log_{([^;=]+)}\\(([^;=]+)\\)": "log($2,$1)" // replacing log base (2+ char)
     });
+
+    return i;
+}
+
+function parseUserInput(input) {
+    let r = {};
+
+    if (mat.test(input)) {
+        let arr = [];
+
+        let rows = input.match(matrow);
+        for (let row of rows) {
+            let a = [];
+            let items = row.match(matentry);
+            for (let item of items) {
+                a.push(sanitize(item));
+            }
+            arr.push(a);
+        }
+
+        r.i = arr;
+        r.type = "matrix";
+        return r;
+    }
+
+    let i = sanitize(input);
     
     if (mcq.test(i)) {
         r.type = "mcq";
@@ -233,6 +260,36 @@ function checkAnswer(g, a) {
         } catch {
             return 2;
         }
+    
+    } else if (a.type == "matrix") {
+        if (g.type != "matrix") return 2;
+
+        let matA = a.i;
+        let matG = g.i;
+
+        if (matA.length != matG.length) return 2;
+
+        let gCols = -1;
+        for (let row of matG) { // checking for rows of the same length
+            if (gCols == -1) gCols = row.length;
+            else if (gCols != row.length) return 2;
+        }
+
+        let aCols = -1;
+        for (let row of matA) {
+            if (aCols == -1) aCols = row.length;
+            else if (aCols != row.length) throw new Error(`Correct answer is invalid. I don't know what ${matA} is.`);
+        }
+
+        if (aCols != gCols) return 2;
+
+        for (let i = 0; i < matA.length; i++) {
+            for (let j = 0; j < matA[i].length; j++) {
+                if (!simplify(parse(matA[i][j])).equals(simplify(parse(matG[i][j])))) return 0; // if any cell is incorrect the whole thing is incorrect
+            }
+        }
+        return 1;
+
     } else {
         try {
             return simplify(parse(g.i)).evaluate() == simplify(parse(a.i)).evaluate();

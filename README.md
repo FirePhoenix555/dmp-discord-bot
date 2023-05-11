@@ -59,7 +59,7 @@ My code is publicly available on GitHub! You can check it out [here](https://git
     * After testing done though
 9. Add "will post at 12pm in the winter (cst) / 1pm in the summer (cdt)" to `/queue` description
 10. New user input classes / support
-    * Matrix user input class (format convert to mathjs `[a b; c d]`)
+    * ~~Matrix user input class (format convert to mathjs `[a b; c d]`)~~
     * ~~Detect variable with `/[^a-z]+([a-z]+)[^a-z]+/` or smth~~
     * Support for `x=1` format / lines (`y=mx+b`) / equation
     * ~~Support for complex numbers~~
