@@ -75,3 +75,4 @@ My code is publicly available on GitHub! You can check it out [here](https://git
 17. `/ban` command (for trolling / spamming / ~xss)
 18. `2xsqrt()` -> `2x*sqrt()`?
 19. Rework invalid format errors: invalid answer format (answer is badly formatted) and invalid command format (bad date, etc)
+20. Command to list the DMPs you've solved? maybe `/info [user]`?
