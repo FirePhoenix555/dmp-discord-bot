@@ -1,4 +1,9 @@
-### DMP Discord bot
+# DMP Discord bot
+
+---
+
+## About
+
 Hello! I'm the official bot for Daily Math Problems! I help out my programmer, [FirePhoenix555](https://github.com/FirePhoenix555), with some tasks relating to posting and archiving DMPs, but you can use me too:
 
 `/check`: Check your answer to a DMP! Any DMP in my archive (no matter how old) can be checked, so long as you haven't already gotten it correct... You can provide a date in this command to check a specific day's DMP, or you can leave the date field blank to check your answer for the most recently posted DMP.  
@@ -15,19 +20,37 @@ And, if you happen to be my programmer (I don't know why you're here for this bu
 My code is publicly available on GitHub! You can check it out [here](https://github.com/FirePhoenix555/dmp-discord-bot).
 
 ---
-### Todo
-1. Refactoring
+
+## Rules for Use
+
+1. **When interacting with the bot, you will:**  
+    1. Not (intentionally) troll or spam
+    2. Not attempt to insert code (malicious or otherwise) into the arguments of a command in an attempt to get the code to run on the server
+2. **When viewing or editing the bot's code, you will:**
+    1. Report any issues you find to me, and only to me, without abusing or attempting to abuse them
+3. **Always, no matter how you are using the bot, you will:**
+    1. Have common sense and don't do what you think should be against the rules, regardless if it is explicitly prohibited here
+    2. Not attempt to abuse loopholes in these rules
+
+*I am the only person that needs to decide that you have broken the rules for you to get banned from future bot use. There may be rules not listed here that will get you banned despite not being listed.*  
+*If I think you've broken the rules, you have.*
+
+---
+
+## Todo
+
+1. **Refactoring**
     * Rework invalid format errors: invalid answer format (answer is badly formatted) and invalid command format (bad date, etc)
-2. File updates
+2. **File updates**
     * `leaderboard.json`:
       * send `"you've already answered" on incorrect answers too?
       * including "kdr" (correct : incorrect ratio)? maybe not?
         * kdr: `round(10*(correct+1)/(attempts+2), 2)` to encourage more attempts in general?
-        * send command log to testing channel?`
+        * send command log to testing channel?
     * `archives.json`:
       * back up when every message archived
     * Move files to actual database
-3. Command updates
+3. **Command updates**
     * `/log`:
       * remove when done archiving
     * `/ban`:
@@ -44,10 +67,12 @@ My code is publicly available on GitHub! You can check it out [here](https://git
         * `2xsqrt()` -> `2x*sqrt()`
     * `/info [user]`: (?)
       * functionality (list the DMPs you've solved)
-4. Output updates
+4. **Output updates**
     * move "user got this correct" message to always be in #dmp (after testing done)
-5. General bot updates
+5. **General bot updates**
     * Host the bot online
     * Set bot nickname/profile pic
-6. Testing
+6. **Testing**
     * does queueing several days in advance work? (images might be deleted?)
+
+---
