@@ -67,6 +67,9 @@ My code is publicly available on GitHub! You can check it out [here](https://git
         * `2xsqrt()` -> `2x*sqrt()`
     * `/info [user]`: (?)
       * functionality (list the DMPs you've solved)
+    * `/suggest`, `/accept`: (?)
+      * functionality (suggest DMPs and queue from the suggestions list)
+      * autoban suggester from answering DMP (but maybe offer some other reward)
 4. **Output updates**
     * move "user got this correct" message to always be in #dmp (after testing done)
 5. **General bot updates**
