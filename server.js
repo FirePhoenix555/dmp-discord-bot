@@ -34,7 +34,8 @@ client.on(Discord.Events.InteractionCreate, async interaction => {
 
     for (i in interaction.options.data) {
         let option = interaction.options.data[i];
-        output += option.name + ":" + option.value + " ";
+        if (option.attachment) output += option.name + ":" + option.attachment.url + " "; // log the url if it's an attachment (value is just an id)
+        else output += option.name + ":" + option.value + " ";
     }
 
     console.log(output);
