@@ -170,7 +170,7 @@ function sanitize(input) {
         "theta": "t",
         "√": "sqrt",
         "[+-]\\d*c$": "", // no +Cs
-        "([a-z]{2,})([^();=a-z])": "$1($2)", // no sqrtx
+        "([a-z]{2,})([^();=a-w+/*-]+)": "$1($2)", // no sqrtx
         "log\\(([^;=]+)\\)": "log($1,10)", // replacing log base 10
         "ln\\(([^;=]+)\\)": "log($1)", // replacing log base e
         "log_([^;=])\\(([^;=]+)\\)": "log($2,$1)", // replacing log base (1 char)
