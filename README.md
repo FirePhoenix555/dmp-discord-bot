@@ -50,6 +50,8 @@ My code is publicly available on GitHub! You can check it out [here](https://git
     * `archives.json`:
       * back up when every message archived
     * Move files to actual database
+    * Save logs to file (auto-write on log so crash doesn't get rid of logs)
+      * Add timestamps too
 3. **Command updates**
     * `/log`:
       * remove when done archiving
@@ -70,6 +72,8 @@ My code is publicly available on GitHub! You can check it out [here](https://git
     * `/suggest`, `/accept`: (?)
       * functionality (suggest DMPs and queue from the suggestions list)
       * autoban suggester from answering DMP (but maybe offer some other reward)
+    * `/help`:
+      * update message to include new commands (+ also this readme message)
 4. **Output updates**
     * move "user got this correct" message to always be in #dmp (after testing done)
 5. **General bot updates**
