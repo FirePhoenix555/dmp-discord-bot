@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const { validUsers } = require('../json/config.json');
 const fs = require('fs').promises;
+const downloadImage = require('../util/download-image.js');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()
@@ -47,7 +48,12 @@ module.exports = {
         if (interaction.options.get("content")) content = interaction.options.get("content").value;
 
         let attachments = [];
-        if (interaction.options.get("attachments")) attachments.push(interaction.options.get("attachments"));
+
+        let attachment = interaction.options.get("attachments");
+        if (attachment) {
+            let fpath = await downloadImage(attachment.attachment.url, 'imgs/' + date + '.png');
+            attachments.push(fpath);
+        }
 
         let answer = interaction.options.get("answer").value;
 

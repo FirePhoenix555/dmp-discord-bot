@@ -1,3 +1,5 @@
+const Discord = require('discord.js');
+
 const { channelId, roleId } = require('./json/config.json');
 const fs = require('fs').promises;
 
@@ -8,18 +10,21 @@ module.exports = async function postDMP(client, dmp, date, queue) {
     const channel = client.channels.cache.get(channelId);
 
     let url = "";
-    if (dmp.message.attachments[0]) url = dmp.message.attachments[0].attachment.url;
+    let files = [];
 
-    const embed = {
-        // color: 0x0099ff,
-        title: 'DMP for ' + date,
-        description: dmp.message.content,
-        image: {
-            url,
-        }
-    };
+    const embed = new Discord.EmbedBuilder()
+        //.setColor(0x0099FF)
+        .setTitle('DMP for ' + date);
     
-    let message = await channel.send({ content: `<@&${roleId}>`, embeds: [embed] });
+    if (dmp.message.attachments[0]) {
+        url = dmp.message.attachments[0];
+        embed.setImage('attachment://' + date + '.png');
+        files = ['./imgs/' + date + '.png'];
+    }
+
+    if (dmp.message.content) embed.setDescription(dmp.message.content);
+
+    let message = await channel.send({ content: `<@&${roleId}>`, embeds: [embed], files });
 
     // add to archive
     const archive = require("./json/archives.json");
