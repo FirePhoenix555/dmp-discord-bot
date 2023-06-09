@@ -74,6 +74,9 @@ My code is publicly available on GitHub! You can check it out [here](https://git
       * autoban suggester from answering DMP (but maybe offer some other reward)
     * `/help`:
       * update message to include new commands (+ also this readme message)
+    * `/info`:
+      * send imgs/ file instead of link, if applicable (but you should also be able to save the link now)
+        * maybe just alter the archive urls to be actual discord-hosted url
 4. **Output updates**
     * move "user got this correct" message to always be in #dmp (after testing done)
 5. **General bot updates**
