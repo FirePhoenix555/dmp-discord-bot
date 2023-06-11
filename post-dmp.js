@@ -28,13 +28,22 @@ module.exports = async function postDMP(client, dmp, date, queue) {
 
     // add to archive
     const archive = require("./json/archives.json");
+
+    let attachment = {
+        "name": "attachments",
+        "attachment": {
+            "attachment": message.embeds[0]?.image?.url,
+            "url": message.embeds[0]?.image?.url
+        }
+    };
+
     let data = {
         "url": message.url,
         "channelId": message.channelId,
         "id": message.id,
         "content": dmp.message.content,
         "embeds": message.embeds,
-        "attachments": message.attachments,
+        "attachments": [attachment],
         "answer": dmp.answer,
         "timestamp": message.createdTimestamp
     };
