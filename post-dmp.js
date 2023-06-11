@@ -34,7 +34,7 @@ module.exports = async function postDMP(client, dmp, date, queue) {
         "id": message.id,
         "content": dmp.message.content,
         "embeds": message.embeds,
-        "attachments": dmp.message.attachments,
+        "attachments": message.attachments,
         "answer": dmp.answer,
         "timestamp": message.createdTimestamp
     };
