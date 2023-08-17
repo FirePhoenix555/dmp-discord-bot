@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const { token, commandsDisabled, validUsers, responseCodes } = require('./json/config.json');
-const { genCommands } = require('./util/commands');
+const { genCommands } = require('./util/commands.js');
 require("./register-commands.js");
 
 const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.MessageContent] });
