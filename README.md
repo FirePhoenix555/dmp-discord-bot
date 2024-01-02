@@ -59,6 +59,10 @@ My code is publicly available on GitHub! You can check it out [here](https://git
       * functionality (ban from bot commands)
     * `/queue`:
       * add "will post at 12pm in the winter (cst) / 1pm in the summer (cdt)" to description
+      * include custom time option
+      * set time to next half hour (whole hour?) if late
+      * placeholder DMP in reserve, to post if I don't queue by 1pm
+        * "PLACEHOLDR" for the date option
     * `/check`:
       * New user input classes / support
         * Support for `x=1` format / lines (`y=mx+b`) / equation
@@ -77,12 +81,27 @@ My code is publicly available on GitHub! You can check it out [here](https://git
     * `/info`:
       * send imgs/ file instead of link, if applicable (but you should also be able to save the link now)
         * maybe just alter the archive urls to be actual discord-hosted url
+    * `/hint`:
+      * give hint for inputted DMP (or most recent)
+        * also restate any previous hints
+        * way to get specific hint instead of necessarily next one?
+      * store when users use hints
+        * maybe use for leaderboard?
+      * option to restate existing hints without asking for new one
+    * `/formatting`:
+      * list formatting guidelines (semicolons, matrices, etc)
 4. **Output updates**
     * move "user got this correct" message to always be in #dmp (after testing done)
 5. **General bot updates**
     * Host the bot online
     * Set bot nickname/profile pic
+    * Save logs to file so they persist
 6. **Testing**
     * does queueing several days in advance work? (images might be deleted?)
+7. **Bugfixes**
+    * Invalid format errors:
+      * "1/2" guess for "0.5" answer
+      * Negative signs not allowed
+    * Crash case 1 (see `bugs/`)
 
 ---
