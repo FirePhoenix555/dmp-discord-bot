@@ -101,7 +101,7 @@ My code is publicly available on GitHub! You can check it out [here](https://git
 7. **Bugfixes**
     * Invalid format errors:
       * "1/2" guess for "0.5" answer
-      * Negative signs not allowed
+      * ~~Negative signs not allowed~~
     * Crash case 1 (see `bugs/`)
 
 ---

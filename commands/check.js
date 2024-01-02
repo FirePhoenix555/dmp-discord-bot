@@ -87,7 +87,7 @@ module.exports = {
 // answer classes
 const mcq = /^[abcd]$/;
 const func = /^([a-z])\(([a-z])\)=/;
-const pureNum = /^([0-9.,]+)$/;
+const pureNum = /^([0-9.,-]+)$/;
 const expr = /([^a-z]|^)+([a-z])([^(a-z]+[^a-z]*[^)a-z]*([^a-z]|$)+|$)/;
 const mat = /\[?(\[([^,\[\] ]+[, ]?)+\][, ]?)+\]?/; // [a b] [c d] OR [a,b][c,d] OR [[a,b],[c,d]], ETC
 const matrow = /\[([^,\[\] ]+[, ]?)+\]/g;
