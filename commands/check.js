@@ -233,7 +233,7 @@ function parseUserInput(input) {
 }
 
 function checkAnswer(g, a) {
-    let isemcq = a == "e" && mcq.test(g);
+    let isemcq = a.i == "e" && mcq.test(g.i);
     
     if (isemcq || a.type == "mcq") {
         if (g.type != "mcq" && !/e/.test(g.i)) return 2;
