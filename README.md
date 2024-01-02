@@ -88,8 +88,6 @@ My code is publicly available on GitHub! You can check it out [here](https://git
       * store when users use hints
         * maybe use for leaderboard?
       * option to restate existing hints without asking for new one
-    * ~~`/formatting`:~~
-      * ~~list formatting guidelines (semicolons, matrices, etc)~~
 4. **Output updates**
     * move "user got this correct" message to always be in #dmp (after testing done)
 5. **General bot updates**
@@ -101,7 +99,6 @@ My code is publicly available on GitHub! You can check it out [here](https://git
 7. **Bugfixes**
     * Invalid format errors:
       * "1/2" guess for "0.5" answer
-      * ~~Negative signs not allowed~~
     * Crash case 1 (see `bugs/`)
 
 ---
