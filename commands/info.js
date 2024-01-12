@@ -69,7 +69,7 @@ module.exports = {
                 { name: 'Content', value: dmp.content }
             );
 
-        await interaction.reply({ embeds: [embed], ephemeral: true });
+        await interaction.followUp({ embeds: [embed], ephemeral: true });
 
         return 0;
     }

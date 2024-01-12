@@ -57,7 +57,7 @@ module.exports = {
 
             await fs.writeFile('./json/archives.json', JSON.stringify(archive));
 
-            await interaction.reply("Successfully archived.");
+            await interaction.followUp("Successfully archived.");
         }).catch(console.error);
 
         return 0;

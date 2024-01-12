@@ -73,9 +73,9 @@ module.exports = {
             await fs.writeFile('./json/leaderboard.json', JSON.stringify(alphabetize(leaderboard)));
 
             await interaction.channel.send({ content: `<@${interaction.user.id}> got the DMP for ${date} correct!`, "allowedMentions": { "users" : []}});
-            await interaction.reply({ content: "Correct!", ephemeral: true });
+            await interaction.followUp({ content: "Correct!", ephemeral: true });
         } else if (correct == 0) { // incorrect answer
-            await interaction.reply({ content: "Incorrect.", ephemeral: true });
+            await interaction.followUp({ content: "Incorrect.", ephemeral: true });
         } else { // error
             return 5;
         }

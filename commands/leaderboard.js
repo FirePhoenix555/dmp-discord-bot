@@ -32,7 +32,7 @@ module.exports = {
             .setDescription(output)
             .setTimestamp();
 
-        await interaction.reply({embeds: [embed]});
+        await interaction.followUp({embeds: [embed]});
 
         return 0;
     },

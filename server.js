@@ -27,6 +27,8 @@ genCommands(cmd => {
 client.on(Discord.Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
+    await interaction.deferReply();
+
 	const command = interaction.client.commands.get(interaction.commandName);
 
     // logging all commands
@@ -47,7 +49,7 @@ client.on(Discord.Events.InteractionCreate, async interaction => {
 
     if (commandsDisabled) {
         if (!validUsers.includes(interaction.user.id)) {
-            await interaction.reply({ content: "Sorry, commands are temporarily disabled (probably I'm being tested elsewhere). Please try again later.", ephemeral: true });
+            await interaction.followUp({ content: "Sorry, commands are temporarily disabled (probably I'm being tested elsewhere). Please try again later.", ephemeral: true });
             return;
         }
     }

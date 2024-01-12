@@ -27,7 +27,7 @@ module.exports = {
                     { name: 'Code', value: helpMessages.foot }
                 );
 
-            await interaction.reply({ embeds: [embed] });
+            await interaction.followUp({ embeds: [embed] });
 
             return 0;
         }
@@ -41,7 +41,7 @@ module.exports = {
             .addFields(
                 { name: `\`/${command}\``, value: helpMessages[command] }
             );
-        await interaction.reply({ embeds: [embed] });
+        await interaction.followUp({ embeds: [embed] });
         return 0;
     }
 };

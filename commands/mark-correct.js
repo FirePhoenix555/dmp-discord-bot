@@ -73,9 +73,9 @@ module.exports = {
 
             await fs.writeFile('./json/leaderboard.json', JSON.stringify(alphabetize(leaderboard)));
 
-            await interaction.reply({ content: `<@${user}> got the DMP for ${date} correct!`, "allowedMentions": { "users" : []}});
+            await interaction.followUp({ content: `<@${user}> got the DMP for ${date} correct!`, "allowedMentions": { "users" : []}});
         } else {
-            await interaction.reply({ content: "Noted." });
+            await interaction.followUp({ content: "Noted." });
         }
         
         return 0;

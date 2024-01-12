@@ -25,7 +25,7 @@ module.exports = {
         let channel = interaction.client.channels.cache.get(channelId);
         channel.send({ embeds: [embed] });
 
-        await interaction.reply("Successfully sent announcement.");
+        await interaction.followUp("Successfully sent announcement.");
 
         return 0;
     }

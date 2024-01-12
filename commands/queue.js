@@ -82,7 +82,7 @@ module.exports = {
 
         require('../schedule-dmp.js')(interaction.client, queue, date);
 
-        await interaction.reply("Successfully queued DMP.");
+        await interaction.followUp("Successfully queued DMP.");
 
         return 0;
     },

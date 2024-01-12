@@ -25,7 +25,7 @@ module.exports = {
                 { name: 'Other', value: formattingGuidelines.misc4 },
             );
 
-        await interaction.reply({ embeds: [embed], ephemeral: true });
+        await interaction.followUp({ embeds: [embed], ephemeral: true });
 
         return 0;
     }

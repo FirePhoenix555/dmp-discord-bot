@@ -23,7 +23,7 @@ module.exports = {
             return 1;
         }
 
-        await interaction.reply("Archiving...");
+        await interaction.followUp("Archiving...");
 
         const chnId = interaction.options.get("channel_id").value;
         let chn = await interaction.client.channels.fetch(chnId);
