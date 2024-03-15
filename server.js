@@ -27,6 +27,8 @@ genCommands(cmd => {
 client.on(Discord.Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
+    await interaction.deferReply({ ephemeral: ephemeralResponses.includes(interaction.commandName) });
+
 	const command = interaction.client.commands.get(interaction.commandName);
 
     // logging all commands
@@ -53,8 +55,6 @@ client.on(Discord.Events.InteractionCreate, async interaction => {
     }
 
 	try {
-        await interaction.deferReply({ ephemeral: ephemeralResponses.includes(interaction.commandName) });
-
 		let res = await command.execute(interaction);
         if (res) { // error
             console.log("[ERROR] " + responseCodes[res]);
